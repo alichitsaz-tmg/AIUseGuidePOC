@@ -56,6 +56,38 @@
         .nav-badge.green { background: var(--success); }
         .nav-badge.danger { background: var(--danger); }
         .nav-badge.addon { background: #f59e0b; }
+
+        /* Hamburger Menu */
+        .hamburger { display: none; background: none; border: none; color: var(--tm-white); cursor: pointer; padding: 8px; margin-right: 12px; }
+        .hamburger i { width: 24px; height: 24px; }
+        @media (max-width: 1024px) { .hamburger { display: flex; align-items: center; } }
+        
+        /* Search */
+        .search-container { position: relative; margin-right: 16px; }
+        .search-btn { background: none; border: none; color: var(--tm-white); cursor: pointer; padding: 8px; display: flex; align-items: center; }
+        .search-btn i { width: 20px; height: 20px; }
+        .search-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: flex-start; padding-top: 100px; }
+        .search-modal.active { display: flex; }
+        .search-box { background: var(--tm-white); width: 90%; max-width: 600px; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); overflow: hidden; }
+        .search-input-wrap { display: flex; align-items: center; padding: 16px; border-bottom: 1px solid var(--tm-gray-200); }
+        .search-input-wrap i { width: 24px; height: 24px; color: var(--tm-gray-600); margin-right: 12px; }
+        .search-input { flex: 1; border: none; font-size: 18px; font-family: 'Barlow', sans-serif; outline: none; }
+        .search-close { background: none; border: none; cursor: pointer; padding: 8px; color: var(--tm-gray-600); }
+        .search-close:hover { color: var(--tm-red); }
+        .search-close i { width: 20px; height: 20px; }
+        .search-results { max-height: 400px; overflow-y: auto; }
+        .search-result { padding: 16px; border-bottom: 1px solid var(--tm-gray-200); cursor: pointer; transition: background 0.15s; }
+        .search-result:hover { background: var(--tm-gray-100); }
+        .search-result-title { font-weight: 600; color: var(--tm-black); margin-bottom: 4px; }
+        .search-result-section { font-size: 12px; color: var(--tm-red); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .search-result-text { font-size: 14px; color: var(--tm-gray-600); }
+        .search-result-text mark { background: #fef08a; color: inherit; padding: 0 2px; }
+        .search-no-results { padding: 32px; text-align: center; color: var(--tm-gray-600); }
+        
+        /* Sidebar toggle for mobile */
+        .sidebar.mobile-visible { display: block; z-index: 500; }
+        .sidebar-overlay { display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 400; }
+        .sidebar-overlay.active { display: block; }
         .main { padding: 32px 48px; max-width: 1200px; margin-left: 250px; }
         h1 { font-family: 'Barlow Condensed', sans-serif; font-size: 42px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: var(--tm-black); }
         h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin: 40px 0 20px; color: var(--tm-black); border-bottom: 2px solid var(--tm-red); padding-bottom: 8px; }
@@ -230,11 +262,19 @@
 <body>
     <header class="header">
         <div class="header-left">
+            <button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle menu">
+                <i data-lucide="menu"></i>
+            </button>
             <img src="data:image/png;base64,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" class="logo" alt="TaylorMade" onerror="this.style.display='none'">
             <span class="header-title">AI Tools Guide</span>
         </div>
         <div class="header-right">
             <span class="version-badge">Last Updated: December 2025 | v7.0</span>
+            <div class="search-container">
+                <button class="search-btn" onclick="openSearch()" aria-label="Search">
+                    <i data-lucide="search"></i>
+                </button>
+            </div>
             <div class="dept-switcher">
                 <button class="dept-btn" onclick="toggleDeptDropdown()">
                     <span class="dept-btn-label">View Prompts For:</span>
@@ -257,6 +297,25 @@
             </div>
         </div>
     </header>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="searchModal" onclick="closeSearchOnOverlay(event)">
+        <div class="search-box" onclick="event.stopPropagation()">
+            <div class="search-input-wrap">
+                <i data-lucide="search"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search the guide..." oninput="performSearch(this.value)">
+                <button class="search-close" onclick="closeSearch()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="search-results" id="searchResults">
+                <div class="search-no-results">Start typing to search...</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sidebar Overlay for Mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
     <div class="layout">
         <nav class="sidebar">
@@ -2471,7 +2530,7 @@ Format for audit/compliance purposes.</div><button class="copy-btn" onclick="cop
                 <p class="subtitle">Side-by-side feature comparison</p>
                 <div class="update-banner">
                     <i data-lucide="info"></i>
-                    <span><strong>Tool Capabilities Update:</strong> This comparison reflects capabilities as of December 2025. AI tools evolve rapidly—if you notice discrepancies or have questions, contact <a href="mailto:ali.chitsaz@taylormadegolf.com">ali.chitsaz@taylormadegolf.com</a></span>
+                    <span><strong>Tool Capabilities Update:</strong> This comparison reflects capabilities as of December 2025. AI tools evolve rapidly—if you notice discrepancies or have questions, contact <a href="/cdn-cgi/l/email-protection#a9c8c5c087cac1c0dddac8d3e9ddc8d0c5c6dbc4c8cdcccec6c5cf87cac6c4"><span class="__cf_email__" data-cfemail="1a7b7673347972736e697b605a6e7b63767568777b7e7f7d75767c34797577">[email&#160;protected]</span></a></span>
                 </div>
                 <table class="comparison-table">
                     <thead><tr>
@@ -2513,7 +2572,7 @@ Format for audit/compliance purposes.</div><button class="copy-btn" onclick="cop
                     <div class="accordion-item"><div class="accordion-header"><span>What if I need to use a tool that's not approved?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Submit a request through the <a href="https://forms.office.com/r/k14DezXeZ1" target="_blank">Generative AI Use Request Form</a>. Provide your business justification and use case. The Legal Department will complete an AI Checklist for review. <strong>Do not use the tool until it's been reviewed and added to the approved list.</strong></p></div></div>
                 
                     <div class="accordion-item"><div class="accordion-header"><span>What should I do if I accidentally entered confidential information into an AI tool?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="callout danger"><div class="callout-icon"><i data-lucide="alert-triangle"></i></div><div><div class="callout-title">Immediate Action Required</div><p>If you've accidentally entered sensitive, confidential, or proprietary information into any AI tool, take these steps immediately:</p></div></div><ol><li><strong>Stop using the tool immediately</strong> - Do not continue the conversation</li><li><strong>Document what happened</strong> - Note what information was shared, which tool, and when</li><li><strong>Contact IT Security immediately</strong> via <a href="https://tmgolf.freshservice.com" target="_blank">IT Service Portal</a></li><li><strong>Notify your manager</strong></li><li><strong>Contact Legal if needed</strong> - For matters involving customer data, contracts, or legal information</li></ol><p><strong>Prevention is Key:</strong> Always use enterprise versions of AI tools with your TaylorMade account. Never use personal/free versions for work tasks.</p></div></div>
-                    <div class="accordion-item"><div class="accordion-header"><span>Who should I contact with questions about the AI Acceptable Use Policy?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>For questions about the AI Acceptable Use Policy, contact:</p><ul><li><strong>Legal Department:</strong> <a href="mailto:ali.chitsaz@taylormadegolf.com">ali.chitsaz@taylormadegolf.com</a></li><li><strong>Urgent questions:</strong> Contact Luke Cocalis or Michael Camastra directly</li></ul><p><strong>Resources:</strong></p><ul><li><a href="https://taylormadegolf.sharepoint.com/:b:/r/sites/Legal/Shared%20Documents/Policies/Generative%20AI%20Acceptable%20Use%20Policy.pdf" target="_blank">View AI Acceptable Use Policy (PDF)</a></li><li><a href="https://forms.office.com/r/k14DezXeZ1" target="_blank">Submit AI Tool Request</a></li><li><a href="https://tmgolf.freshservice.com" target="_blank">IT Service Portal</a></li></ul><p><em>When in doubt, ask first. The Legal team is here to help.</em></p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Who should I contact with questions about the AI Acceptable Use Policy?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>For questions about the AI Acceptable Use Policy, contact:</p><ul><li><strong>Legal Department:</strong> <a href="/cdn-cgi/l/email-protection#a9c8c5c087cac1c0dddac8d3e9ddc8d0c5c6dbc4c8cdcccec6c5cf87cac6c4"><span class="__cf_email__" data-cfemail="4f2e2326612c27263b3c2e350f3b2e3623203d222e2b2a28202329612c2022">[email&#160;protected]</span></a></li><li><strong>Urgent questions:</strong> Contact Luke Cocalis or Michael Camastra directly</li></ul><p><strong>Resources:</strong></p><ul><li><a href="https://taylormadegolf.sharepoint.com/:b:/r/sites/Legal/Shared%20Documents/Policies/Generative%20AI%20Acceptable%20Use%20Policy.pdf" target="_blank">View AI Acceptable Use Policy (PDF)</a></li><li><a href="https://forms.office.com/r/k14DezXeZ1" target="_blank">Submit AI Tool Request</a></li><li><a href="https://tmgolf.freshservice.com" target="_blank">IT Service Portal</a></li></ul><p><em>When in doubt, ask first. The Legal team is here to help.</em></p></div></div>
 
                 </div>
                 <h2>Get Help</h2>
@@ -2523,7 +2582,7 @@ Format for audit/compliance purposes.</div><button class="copy-btn" onclick="cop
                     <h4>Request a New AI Tool</h4>
                     <p>Want to use an AI tool that's not currently approved? Submit a request for review:<br><a href="https://forms.office.com/r/k14DezXeZ1" target="_blank">Generative AI Use Request Form</a></p>
                     <h4>AI Tools Support Contact</h4>
-                    <p>For questions about AI tools, best practices, and use cases:<br><a href="mailto:ali.chitsaz@taylormadegolf.com">ali.chitsaz@taylormadegolf.com</a></p>
+                    <p>For questions about AI tools, best practices, and use cases:<br><a href="/cdn-cgi/l/email-protection#1475787d3a777c7d6067756e5460756d787b6679757071737b78723a777b79"><span class="__cf_email__" data-cfemail="f0919c99de9398998483918ab08491899c9f829d919495979f9c96de939f9d">[email&#160;protected]</span></a></p>
                                         <h4>Policy Questions & Legal Guidance</h4>
                     <p>For questions about the AI Acceptable Use Policy, data classification, or approval requests:<br>
                     <strong>Legal Department:</strong> Submit via <a href="https://tmgolf.freshservice.com" target="_blank">IT Service Portal</a><br>
@@ -2650,6 +2709,107 @@ Format for audit/compliance purposes.</div><button class="copy-btn" onclick="cop
             // Initialize first section as active
             navigateTo('overview');
         });
+        
+        // Sidebar toggle for mobile
+        function toggleSidebar() {
+            var sidebar = document.querySelector('.sidebar');
+            var overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('mobile-visible');
+            overlay.classList.toggle('active');
+        }
+        
+        // Search functionality
+        function openSearch() {
+            document.getElementById('searchModal').classList.add('active');
+            document.getElementById('searchInput').focus();
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeSearch() {
+            document.getElementById('searchModal').classList.remove('active');
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchResults').innerHTML = '<div class="search-no-results">Start typing to search...</div>';
+            document.body.style.overflow = '';
+        }
+        
+        function closeSearchOnOverlay(e) {
+            if (e.target === document.getElementById('searchModal')) {
+                closeSearch();
+            }
+        }
+        
+        // Keyboard shortcut for search (Ctrl+K or Cmd+K)
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                openSearch();
+            }
+            if (e.key === 'Escape') {
+                closeSearch();
+            }
+        });
+        
+        function performSearch(query) {
+            var resultsContainer = document.getElementById('searchResults');
+            
+            if (query.length < 2) {
+                resultsContainer.innerHTML = '<div class="search-no-results">Start typing to search...</div>';
+                return;
+            }
+            
+            var sections = document.querySelectorAll('.section');
+            var results = [];
+            var queryLower = query.toLowerCase();
+            
+            sections.forEach(function(section) {
+                var sectionId = section.id;
+                var sectionTitle = section.querySelector('h1') ? section.querySelector('h1').textContent : sectionId;
+                var textContent = section.textContent;
+                
+                if (textContent.toLowerCase().indexOf(queryLower) !== -1) {
+                    var lowerText = textContent.toLowerCase();
+                    var matchIndex = lowerText.indexOf(queryLower);
+                    var start = Math.max(0, matchIndex - 50);
+                    var end = Math.min(textContent.length, matchIndex + query.length + 100);
+                    var snippet = (start > 0 ? '...' : '') + textContent.substring(start, end).trim() + (end < textContent.length ? '...' : '');
+                    
+                    var regex = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+                    snippet = snippet.replace(regex, '<mark>$1</mark>');
+                    
+                    results.push({
+                        id: sectionId,
+                        title: sectionTitle,
+                        snippet: snippet
+                    });
+                }
+            });
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<div class="search-no-results">No results found for "' + query + '"</div>';
+                return;
+            }
+            
+            var html = '';
+            results.forEach(function(result) {
+                html += '<div class="search-result" onclick="goToResult(\'' + result.id + '\')">';
+                html += '<div class="search-result-section">' + result.id.replace(/-/g, ' ') + '</div>';
+                html += '<div class="search-result-title">' + result.title + '</div>';
+                html += '<div class="search-result-text">' + result.snippet + '</div>';
+                html += '</div>';
+            });
+            
+            resultsContainer.innerHTML = html;
+        }
+        
+        function goToResult(sectionId) {
+            closeSearch();
+            navigateTo(sectionId);
+            
+            var sidebar = document.querySelector('.sidebar');
+            var overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.remove('mobile-visible');
+            overlay.classList.remove('active');
+        }
     </script>
     
     <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
