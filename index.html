@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools Guide | TaylorMade Golf | v4.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        :root {
+            --tm-red: #E31837;
+            --tm-red-dark: #C41230;
+            --tm-black: #000000;
+            --tm-white: #FFFFFF;
+            --tm-gray-100: #F5F5F5;
+            --tm-gray-200: #E8E8E8;
+            --tm-gray-300: #D1D1D1;
+            --tm-gray-600: #666666;
+            --tm-gray-800: #333333;
+            --success: #059669;
+            --warning: #D97706;
+            --info: #0284C7;
+            --danger: #DC2626;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Barlow', sans-serif; background: var(--tm-gray-100); color: var(--tm-gray-800); line-height: 1.6; }
+        .header { background: var(--tm-black); color: var(--tm-white); padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
+        .header-left { display: flex; align-items: center; gap: 20px; }
+        .logo { height: 28px; filter: brightness(0) invert(1); }
+        .header-title { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--tm-gray-300); }
+        .dept-switcher { position: relative; }
+        .dept-btn { display: flex; align-items: center; gap: 8px; background: var(--tm-gray-800); border: none; color: var(--tm-white); padding: 8px 16px; font-family: 'Barlow', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .dept-btn:hover { background: var(--tm-gray-600); }
+        .dept-btn i { width: 16px; height: 16px; }
+        .dept-dropdown { position: absolute; top: 100%; right: 0; background: var(--tm-white); border: 1px solid var(--tm-gray-200); box-shadow: 0 8px 24px rgba(0,0,0,0.15); min-width: 200px; display: none; z-index: 1001; }
+        .dept-dropdown.active { display: block; }
+        .dept-option { display: flex; align-items: center; gap: 12px; padding: 12px 16px; color: var(--tm-gray-800); font-size: 14px; cursor: pointer; transition: background 0.15s; border-left: 3px solid transparent; }
+        .dept-option:hover { background: var(--tm-gray-100); color: var(--tm-red); }
+        .dept-option.active { background: var(--tm-gray-100); color: var(--tm-red); border-left-color: var(--tm-red); font-weight: 600; }
+        .dept-option i { width: 18px; height: 18px; }
+        .layout { display: block; margin-top: 64px; min-height: calc(100vh - 64px); }
+        .sidebar { width: 250px; background: var(--tm-white); border-right: 1px solid var(--tm-gray-200); position: fixed; top: 64px; left: 0; bottom: 0; overflow-y: auto; padding: 20px 0; z-index: 100; }
+        @media (max-width: 1024px) { .sidebar { display: none; } .main { margin-left: 0 !important; } }
+        .nav-section { margin-bottom: 8px; }
+        .nav-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--tm-gray-600); padding: 12px 20px 8px; }
+        .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 20px; color: var(--tm-gray-800); text-decoration: none; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; border-left: 3px solid transparent; }
+        .nav-item:hover { background: var(--tm-gray-100); color: var(--tm-red); }
+        .nav-item.active { background: var(--tm-gray-100); color: var(--tm-red); border-left-color: var(--tm-red); font-weight: 600; }
+        .nav-item i { width: 18px; height: 18px; }
+        .nav-badge { margin-left: auto; background: var(--tm-red); color: white; font-size: 9px; font-weight: 700; padding: 2px 6px; }
+        .nav-badge.green { background: var(--success); }
+        .nav-badge.danger { background: var(--danger); }
+        .main { padding: 32px 48px; max-width: 1200px; margin-left: 250px; }
+        h1 { font-family: 'Barlow Condensed', sans-serif; font-size: 42px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: var(--tm-black); }
+        h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin: 40px 0 20px; color: var(--tm-black); border-bottom: 2px solid var(--tm-red); padding-bottom: 8px; }
+        h3 { font-size: 18px; font-weight: 600; margin: 24px 0 12px; color: var(--tm-gray-800); }
+        h4 { font-size: 16px; font-weight: 600; margin: 16px 0 8px; color: var(--tm-gray-800); }
+        .subtitle { font-size: 18px; color: var(--tm-gray-600); margin-bottom: 32px; }
+        p { margin-bottom: 16px; }
+        a { color: var(--tm-red); }
+        a:hover { color: var(--tm-red-dark); }
+        ul, ol { margin: 0 0 16px 24px; }
+        li { margin-bottom: 6px; }
+        strong { font-weight: 600; }
+        .section { display: none; }
+        .section.active { display: block; }
+        .card { background: var(--tm-white); border: 1px solid var(--tm-gray-200); padding: 24px; margin-bottom: 20px; }
+        .card h3:first-child, .card h4:first-child { margin-top: 0; }
+        .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 24px 0; }
+        .tool-card { background: var(--tm-white); border: 1px solid var(--tm-gray-200); padding: 20px; cursor: pointer; transition: all 0.2s; }
+        .tool-card:hover { border-color: var(--tm-red); box-shadow: 0 4px 12px rgba(227,24,55,0.1); }
+        .tool-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .tool-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; border-radius: 8px; overflow: hidden; }
+        .tool-icon svg { width: 32px; height: 32px; }
+        .tool-icon.copilot { background: white; padding: 6px; }
+        .tool-icon.claude { background: white; padding: 6px; }
+        .tool-icon.gemini { background: white; padding: 6px; }
+        .tool-icon.firefly { background: white; padding: 6px; }
+        .tool-name { font-weight: 700; font-size: 16px; }
+        .tool-type { font-size: 12px; color: var(--tm-gray-600); }
+        .tool-desc { font-size: 14px; color: var(--tm-gray-600); margin-bottom: 12px; }
+        .tool-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+        .tag { font-size: 10px; font-weight: 700; padding: 3px 8px; background: var(--tm-gray-200); color: var(--tm-gray-800); text-transform: uppercase; letter-spacing: 0.5px; }
+        .tag.primary { background: var(--tm-red); color: white; }
+        .tag.success { background: var(--success); color: white; }
+        .tag.info { background: var(--info); color: white; }
+        .tag.danger { background: var(--danger); color: white; }
+        .prompt-box { background: var(--tm-gray-800); color: #E8E8E8; padding: 20px; font-family: 'Monaco', 'Menlo', 'Consolas', monospace; font-size: 13px; line-height: 1.6; white-space: pre-wrap; margin: 24px 0 16px 0; position: relative; border-left: 4px solid var(--tm-red); }
+        .prompt-box::before { content: 'PROMPT'; position: absolute; top: -12px; left: 16px; background: var(--tm-red); color: white; font-family: 'Barlow', sans-serif; font-size: 10px; font-weight: 700; padding: 2px 8px; letter-spacing: 1px; }
+        .copy-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--tm-gray-200); border: none; padding: 8px 16px; font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+        .copy-btn:hover { background: var(--tm-gray-300); }
+        .copy-btn.copied { background: var(--success); color: white; }
+        .copy-btn i { width: 14px; height: 14px; }
+        .accordion { margin: 20px 0; }
+        .accordion-item { border: 1px solid var(--tm-gray-200); margin-bottom: -1px; }
+        .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: var(--tm-white); cursor: pointer; font-weight: 600; transition: background 0.15s; }
+        .accordion-header:hover { background: var(--tm-gray-100); }
+        .accordion-header i { width: 18px; height: 18px; transition: transform 0.2s; }
+        .accordion-item.active .accordion-header i { transform: rotate(180deg); }
+        .accordion-body { display: none; padding: 20px; background: var(--tm-gray-100); border-top: 1px solid var(--tm-gray-200); }
+        .accordion-item.active .accordion-body { display: block; }
+        .callout { display: flex; gap: 16px; padding: 20px; margin: 20px 0; border-left: 4px solid; }
+        .callout.info { background: #EFF6FF; border-color: var(--info); }
+        .callout.warning { background: #FFFBEB; border-color: var(--warning); }
+        .callout.success { background: #ECFDF5; border-color: var(--success); }
+        .callout.danger { background: #FEF2F2; border-color: var(--danger); }
+        .callout-icon { flex-shrink: 0; }
+        .callout-icon i { width: 20px; height: 20px; }
+        .callout.info .callout-icon { color: var(--info); }
+        .callout.warning .callout-icon { color: var(--warning); }
+        .callout.success .callout-icon { color: var(--success); }
+        .callout.danger .callout-icon { color: var(--danger); }
+        .callout-title { font-weight: 700; margin-bottom: 4px; }
+        .quick-ref { background: var(--tm-black); color: var(--tm-white); padding: 24px; margin: 24px 0; }
+        .quick-ref-title { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--tm-gray-300); margin-bottom: 16px; }
+        .quick-ref-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+        .quick-ref-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--tm-gray-600); margin-bottom: 4px; }
+        .quick-ref-value { font-weight: 600; }
+        .quick-ref-value a { color: var(--tm-white); text-decoration: underline; }
+        .steps { margin: 20px 0; counter-reset: step-counter; }
+        .step { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--tm-gray-200); }
+        .step:last-child { border-bottom: none; }
+        .step-number { width: 32px; height: 32px; background: var(--tm-red); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+        .step-number::before { counter-increment: step-counter; content: counter(step-counter); }
+        .step-title { font-weight: 700; margin-bottom: 4px; }
+        .step-content p { margin-bottom: 0; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        .comparison-table th, .comparison-table td { padding: 12px 16px; text-align: left; border: 1px solid var(--tm-gray-200); }
+        .comparison-table th { background: var(--tm-black); color: var(--tm-white); font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; }
+        .comparison-table tr:nth-child(even) { background: var(--tm-gray-100); }
+        .check { color: var(--success); }
+        .cross { color: var(--tm-red); }
+        .dept-content { display: none; }
+        .dept-content.active { display: block; }
+        .framework-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 24px 0; }
+        .framework-card { background: var(--tm-white); border: 1px solid var(--tm-gray-200); padding: 20px; }
+        .framework-card h4 { margin-top: 0; color: var(--tm-red); }
+        .enterprise-box { background: linear-gradient(135deg, #1a1a1a, #333); color: white; padding: 24px; margin: 24px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .enterprise-column h4 { color: var(--success); margin-top: 0; border-bottom: 2px solid var(--success); padding-bottom: 8px; }
+        .enterprise-column.danger h4 { color: var(--danger); border-color: var(--danger); }
+        .enterprise-column ul { margin: 16px 0 0 20px; }
+        .enterprise-column li { margin-bottom: 8px; }
+        .not-approved-box { background: #FEF2F2; border: 2px solid var(--danger); padding: 20px; margin: 20px 0; }
+        .not-approved-box h4 { color: var(--danger); margin-top: 0; }
+        .version-note { font-size: 12px; color: var(--tm-gray-600); text-align: right; margin-top: -20px; margin-bottom: 20px; }
+        @media (max-width: 768px) {
+            .enterprise-box { grid-template-columns: 1fr; }
+        }
+    
+        /* Version Badge */
+        .version-badge {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            color: var(--tm-gray-600);
+            font-weight: 500;
+            padding: 4px 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+        }
+        @media (max-width: 768px) {
+            .version-badge { display: none; }
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            background: var(--tm-red);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(227,24,55,0.3);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+        .back-to-top:hover {
+            background: var(--tm-red-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(227,24,55,0.4);
+        }
+        .back-to-top.visible {
+            display: flex;
+        }
+        .back-to-top i {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* Update Info Banner */
+        .update-banner {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border-left: 4px solid var(--info);
+            padding: 12px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--tm-gray-800);
+        }
+        .update-banner i {
+            width: 16px;
+            height: 16px;
+            color: var(--info);
+            flex-shrink: 0;
+        }
+        .update-banner strong {
+            color: var(--info);
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <img src="https://www.taylormadegolf.com/on/demandware.static/Sites-TMaG-US-Site/-/default/dwe53ca98e/images/logo.svg" class="logo" alt="TaylorMade" onerror="this.style.display='none'">
+            <span class="header-title">AI Tools Guide</span>
+        </div>
+        <div class="dept-switcher">
+            <button class="dept-btn" onclick="toggleDeptDropdown()">
+                <i data-lucide="building-2"></i>
+                <span id="current-dept-name">Everyone</span>
+                <i data-lucide="chevron-down"></i>
+            </button>
+            <div class="dept-dropdown" id="dept-dropdown">
+                <div class="dept-option active" data-dept="general"><i data-lucide="users"></i> Everyone</div>
+                <div class="dept-option" data-dept="marketing"><i data-lucide="megaphone"></i> Marketing</div>
+                <div class="dept-option" data-dept="sales"><i data-lucide="handshake"></i> Sales</div>
+                <div class="dept-option" data-dept="finance"><i data-lucide="calculator"></i> Finance</div>
+                <div class="dept-option" data-dept="hr"><i data-lucide="user-check"></i> Human Resources</div>
+                <div class="dept-option" data-dept="legal"><i data-lucide="scale"></i> Legal</div>
+                <div class="dept-option" data-dept="operations"><i data-lucide="boxes"></i> Operations</div>
+                <div class="dept-option" data-dept="engineering"><i data-lucide="cog"></i> Engineering</div>
+                <div class="dept-option" data-dept="product"><i data-lucide="lightbulb"></i> Product Creation</div>
+                <div class="dept-option" data-dept="it"><i data-lucide="server"></i> IT</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="layout">
+        <nav class="sidebar">
+            <div class="nav-section">
+                <div class="nav-section-title">Getting Started</div>
+                <a class="nav-item active" data-section="overview"><i data-lucide="home"></i> Overview</a>
+                <a class="nav-item" data-section="quickstart"><i data-lucide="zap"></i> Quick Start</a>
+                <a class="nav-item" data-section="choosing"><i data-lucide="git-branch"></i> Which Tool to Use</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Approved AI Tools</div>
+                <a class="nav-item" data-section="copilot-chat"><i data-lucide="message-circle"></i> Copilot Chat<span class="nav-badge green">INCLUDED</span></a>
+                <a class="nav-item" data-section="copilot-m365"><i data-lucide="sparkles"></i> M365 Copilot<span class="nav-badge">LICENSED</span></a>
+                <a class="nav-item" data-section="claude"><i data-lucide="brain"></i> Claude AI<span class="nav-badge">LICENSED</span></a>
+                <a class="nav-item" data-section="gemini"><i data-lucide="sparkle"></i> Gemini / Nano Banana<span class="nav-badge">LICENSED</span></a>
+                <a class="nav-item" data-section="firefly"><i data-lucide="flame"></i> Adobe Firefly<span class="nav-badge">LICENSED</span></a>
+                <a class="nav-item" data-section="not-approved"><i data-lucide="shield-x"></i> Not Approved<span class="nav-badge danger">BLOCKED</span></a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Use Cases</div>
+                <a class="nav-item" data-section="dept-prompts"><i data-lucide="file-text"></i> <span id="nav-dept-label">Everyone</span></a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Resources</div>
+                <a class="nav-item" data-section="prompting"><i data-lucide="message-square-text"></i> Prompting Frameworks</a>
+                <a class="nav-item" data-section="comparison"><i data-lucide="table"></i> Tool Comparison</a>
+                <a class="nav-item" data-section="faq"><i data-lucide="help-circle"></i> FAQ & Support</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Support</div>
+                <a class="nav-item" href="https://tmgolf.freshservice.com" target="_blank"><i data-lucide="ticket"></i> IT Service Portal</a>
+                <a class="nav-item" href="https://tmgolf.freshservice.com/support/catalog/items/590" target="_blank"><i data-lucide="file-plus"></i> Request New AI Tool</a>
+                <a class="nav-item" href="/cdn-cgi/l/email-protection#5e3f3237703d36372a2d3f241e2a3f2732312c333f3a3b39313238703d3133"><i data-lucide="mail"></i> Contact IT</a>
+            </div>
+        </nav>
+        <main class="main">
+            <!-- OVERVIEW -->
+            <section class="section active" id="overview">
+                <h1>AI Tools at TaylorMade</h1>
+                <p class="subtitle">Your complete guide to leveraging AI assistants</p>
+                <div class="version-note">Last verified: December 2025 • <a href="https://taylormadegolf.sharepoint.com/:b:/r/sites/Legal/Shared%20Documents/Policies/Generative%20AI%20Acceptable%20Use%20Policy.pdf" target="_blank">View AI Policy</a></div>
+                
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Quick Access</div>
+                    <div class="quick-ref-grid">
+                        <div class="quick-ref-item"><div class="quick-ref-label">IT Service Portal</div><div class="quick-ref-value"><a href="https://tmgolf.freshservice.com" target="_blank">tmgolf.freshservice.com</a></div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Request Claude</div><div class="quick-ref-value"><a href="https://tmgolf.freshservice.com/a/catalog/request-items/575" target="_blank">Service Catalog #575</a></div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Request M365 Copilot</div><div class="quick-ref-value"><a href="https://tmgolf.freshservice.com/a/catalog/request-items/553" target="_blank">Service Catalog #553</a></div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">AI Policy</div><div class="quick-ref-value"><a href="https://taylormadegolf.sharepoint.com/:b:/r/sites/Legal/Shared%20Documents/Policies/Generative%20AI%20Acceptable%20Use%20Policy.pdf" target="_blank">View Policy PDF</a></div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Request New AI Tool</div><div class="quick-ref-value"><a href="https://tmgolf.freshservice.com/support/catalog/items/590" target="_blank">AI Use Request Form</a></div></div>
+                    </div>
+                </div>
+
+                <!-- Enterprise vs Personal AI Callout -->
+                <div class="enterprise-box">
+                    <div class="enterprise-column">
+                        <h4>✓ Enterprise AI (Approved)</h4>
+                        <ul>
+                            <li><strong>Contractual Data Privacy</strong> — Your data is protected by enterprise agreements</li>
+                            <li><strong>No Model Training</strong> — Your inputs are NOT used to train AI models</li>
+                            <li><strong>Regulatory Compliant</strong> — Meets TaylorMade security and legal requirements</li>
+                            <li><strong>SSO Authentication</strong> — Sign in with your @taylormadegolf.com account</li>
+                        </ul>
+                    </div>
+                    <div class="enterprise-column danger">
+                        <h4>✗ Personal AI (Not Approved)</h4>
+                        <ul>
+                            <li><strong>Shared Public Infrastructure</strong> — No enterprise data protections</li>
+                            <li><strong>Data Used for Training</strong> — Your inputs may train future models</li>
+                            <li><strong>Compliance Gaps</strong> — Does not meet TaylorMade security requirements</li>
+                            <li><strong>Policy Violation</strong> — Using personal AI for work violates company policy</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>Approved AI Tools</h2>
+                <div class="tool-grid">
+                    <div class="tool-card" onclick="navigateTo('copilot-chat')">
+                        <div class="tool-card-header">
+                            <div class="tool-icon copilot"><img src="Copilot.png" alt="Copilot" style="width:100%;height:100%;object-fit:contain;"></div>
+                            <div><div class="tool-name">Microsoft Copilot Chat</div><div class="tool-type">Microsoft • GPT-5</div></div>
+                        </div>
+                        <div class="tool-desc">Free AI chat for web research, brainstorming, and general questions. Enterprise Data Protection included.</div>
+                        <div class="tool-tags"><span class="tag success">INCLUDED</span><span class="tag">WEB SEARCH</span><span class="tag">DALL-E</span></div>
+                    </div>
+                    <div class="tool-card" onclick="navigateTo('copilot-m365')">
+                        <div class="tool-card-header">
+                            <div class="tool-icon copilot"><img src="Copilot.png" alt="Copilot" style="width:100%;height:100%;object-fit:contain;"></div>
+                            <div><div class="tool-name">Microsoft 365 Copilot</div><div class="tool-type">Microsoft • $30/user/month</div></div>
+                        </div>
+                        <div class="tool-desc">AI embedded in Outlook, Word, Excel, PowerPoint, and Teams. Accesses your work data directly.</div>
+                        <div class="tool-tags"><span class="tag primary">LICENSED</span><span class="tag">OFFICE APPS</span><span class="tag">WORK DATA</span></div>
+                    </div>
+                    <div class="tool-card" onclick="navigateTo('claude')">
+                        <div class="tool-card-header">
+                            <div class="tool-icon claude"><img src="Claude.png" alt="Claude" style="width:100%;height:100%;object-fit:contain;"></div>
+                            <div><div class="tool-name">Claude AI</div><div class="tool-type">Anthropic • Licensed</div></div>
+                        </div>
+                        <div class="tool-desc">Best-in-class writing, analysis, and creative work. Excellent for long documents and nuanced tasks.</div>
+                        <div class="tool-tags"><span class="tag primary">LICENSED</span><span class="tag">WRITING</span><span class="tag">OPUS 4.5</span></div>
+                    </div>
+                    <div class="tool-card" onclick="navigateTo('gemini')">
+                        <div class="tool-card-header">
+                            <div class="tool-icon gemini"><img src="google-gemini-icon.png" alt="Gemini" style="width:100%;height:100%;object-fit:contain;"></div>
+                            <div><div class="tool-name">Gemini + Nano Banana Pro</div><div class="tool-type">Google DeepMind • Licensed</div></div>
+                        </div>
+                        <div class="tool-desc">Multimodal AI with studio-quality image generation. Create visuals with accurate text rendering.</div>
+                        <div class="tool-tags"><span class="tag primary">LICENSED</span><span class="tag">IMAGES</span><span class="tag">GEMINI 3</span></div>
+                    </div>
+                    <div class="tool-card" onclick="navigateTo('firefly')">
+                        <div class="tool-card-header">
+                            <div class="tool-icon firefly"><img src="Firefly.png" alt="Firefly" style="width:100%;height:100%;object-fit:contain;"></div>
+                            <div><div class="tool-name">Adobe Firefly</div><div class="tool-type">Adobe • Licensed</div></div>
+                        </div>
+                        <div class="tool-desc">AI-powered image editing and expansion. Best for enhancing and extending original visual content.</div>
+                        <div class="tool-tags"><span class="tag primary">LICENSED</span><span class="tag">IMAGE EDITING</span><span class="tag">GENERATIVE FILL</span></div>
+                    </div>
+                </div>
+
+                <div class="callout danger">
+                    <div class="callout-icon"><i data-lucide="shield-x"></i></div>
+                    <div>
+                        <div class="callout-title">Not Approved for Work Use</div>
+                        <p style="margin:0"><strong>ChatGPT</strong> and <strong>Grammarly</strong> are explicitly not approved per company policy. Do not use these tools for any work-related tasks, even on personal devices. <a href="#" onclick="navigateTo('not-approved'); return false;">Learn more →</a></p>
+                    </div>
+                </div>
+
+                <h2>Key Principles for AI Success</h2>
+                <div class="card">
+                    <h3>1. Be Specific and Contextual</h3>
+                    <p>Vague prompts produce generic results. Include your role, audience, purpose, and constraints.</p>
+                    <div class="callout warning"><div class="callout-icon"><i data-lucide="x-circle"></i></div><div><div class="callout-title">Weak Prompt</div><p style="margin:0">"Write a report about Q4 performance"</p></div></div>
+                    <div class="callout success"><div class="callout-icon"><i data-lucide="check-circle"></i></div><div><div class="callout-title">Strong Prompt</div><p style="margin:0">"Write a 2-page executive summary of Q4 2024 performance for TaylorMade leadership. Include revenue highlights, key product launches (Qi35 driver, TP5 balls), channel performance by region, and 3 strategic recommendations for Q1. Tone: confident, data-driven."</p></div></div>
+                </div>
+                <div class="card">
+                    <h3>2. Iterate and Refine</h3>
+                    <p>AI conversations are collaborative. Start broad, then narrow down. Ask for revisions. The best results come from 3-5 back-and-forth exchanges, not a single perfect prompt.</p>
+                </div>
+                <div class="card">
+                    <h3>3. Verify Critical Information</h3>
+                    <p>AI can make mistakes ("hallucinations"), especially with statistics, recent events, and company-specific data. Always verify numbers, dates, and facts before using in important communications.</p>
+                </div>
+                <div class="card">
+                    <h3>4. Protect Confidential Information</h3>
+                    <p>Even with enterprise tools, exercise judgment with sensitive data. Avoid inputting customer PII, trade secrets, unreleased product details, or financial metrics without business need. When in doubt, consult Legal.</p>
+                </div>
+            </section>
+
+            <!-- QUICK START -->
+            <section class="section" id="quickstart">
+                <h1>Quick Start</h1>
+                <p class="subtitle">Get productive with AI in under 5 minutes</p>
+                <h2>Start Now — Copilot Chat (Included)</h2>
+                <div class="card">
+                    <h3>Fastest Way to Get Started</h3>
+                    <div class="steps">
+                        <div class="step"><div class="step-number"></div><div class="step-content"><div class="step-title">Go to office.com</div><p>Open any browser and navigate to <a href="https://office.com" target="_blank">office.com</a></p></div></div>
+                        <div class="step"><div class="step-number"></div><div class="step-content"><div class="step-title">Sign in with your TaylorMade account</div><p>Use your @taylormadegolf.com email. <strong>This ensures Enterprise Data Protection is active.</strong></p></div></div>
+                        <div class="step"><div class="step-number"></div><div class="step-content"><div class="step-title">Click the Copilot icon in the left sidebar</div><p>Look for the Copilot icon (multicolor sparkle design) in the app launcher or left navigation panel.</p></div></div>
+                    </div>
+                    <div class="callout info"><div class="callout-icon"><i data-lucide="info"></i></div><div><div class="callout-title">Alternative Access Methods</div><p style="margin:0"><strong>Desktop App:</strong> Search "Copilot" in your Start menu (pre-installed on TaylorMade machines)<br><strong>Edge Browser:</strong> Press Ctrl+Shift+. or click the Copilot icon in the top-right<br><strong>Mobile:</strong> Download from <a href="https://apps.apple.com/us/app/microsoft-365-copilot/id541164041" target="_blank">iOS App Store</a></p></div></div>
+                </div>
+
+                <div class="callout warning">
+                    <div class="callout-icon"><i data-lucide="alert-triangle"></i></div>
+                    <div>
+                        <div class="callout-title">Always Sign In with TaylorMade Account</div>
+                        <p style="margin:0">Using AI tools without signing in with your @taylormadegolf.com account means your data is NOT protected by enterprise agreements. This is a policy violation.</p>
+                    </div>
+                </div>
+
+                <h2>Licensed Tools — Request Access</h2>
+                <div class="tool-grid">
+                    <div class="card"><h4>Claude AI</h4><p><strong>Best for:</strong> Long-form writing, complex analysis, creative projects</p><ol><li><a href="https://tmgolf.freshservice.com/a/catalog/request-items/575" target="_blank">Request access via Service Catalog #575</a></li><li>Wait for license approval (typically 1-2 business days)</li><li>Access at <a href="https://claude.ai" target="_blank">claude.ai</a> with TaylorMade SSO</li></ol></div>
+                    <div class="card"><h4>Microsoft 365 Copilot</h4><p><strong>Best for:</strong> Office apps, email drafting, meeting summaries</p><ol><li><a href="https://tmgolf.freshservice.com/a/catalog/request-items/553" target="_blank">Request license via Service Catalog #553</a></li><li>Requires manager approval ($30/user/month)</li><li>Appears automatically in Word, Excel, PowerPoint, Outlook, Teams</li></ol></div>
+                    <div class="card"><h4>Gemini / Nano Banana Pro</h4><p><strong>Best for:</strong> Image generation, multimodal tasks, visual content</p><ol><li><a href="https://tmgolf.freshservice.com/support/catalog/items/588" target="_blank">Request access via Service Catalog #588</a></li><li>Wait for license approval</li><li>Access via <a href="https://auth.cloud.google/signin/locations/global/workforcePools/tmg-entra-id-saml-pool/providers/tmg-entra-id-saml-pool-provider?continueUrl=https%3A%2F%2Fvertexaisearch.cloud.google%2Fhome%2Fcid%2F53072bd6-a14f-4182-9105-aee19ee5686f&hl=en_US" target="_blank">TaylorMade Gemini Portal</a></li></ol></div>
+                    <div class="card"><h4>Adobe Firefly</h4><p><strong>Best for:</strong> Image editing, generative fill, expanding original content</p><ol><li>Already included with TaylorMade Adobe Account</li><li>Access at <a href="https://firefly.adobe.com" target="_blank">firefly.adobe.com</a></li><li><strong>Must be logged into your TaylorMade Adobe Account</strong></li></ol></div>
+                </div>
+            </section>
+
+            <!-- WHICH TOOL -->
+            <section class="section" id="choosing">
+                <h1>Which Tool Should I Use?</h1>
+                <p class="subtitle">A quick decision guide for common tasks</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Task</th><th>Best Tool</th><th>Why</th></tr></thead>
+                    <tbody>
+                        <tr><td>Quick web research</td><td><strong>Copilot Chat</strong></td><td>Free, fast, cites sources</td></tr>
+                        <tr><td>Draft email in Outlook</td><td><strong>M365 Copilot</strong></td><td>Works directly in Outlook, knows your context</td></tr>
+                        <tr><td>Write long-form content</td><td><strong>Claude</strong></td><td>Best writing quality, handles long documents</td></tr>
+                        <tr><td>Summarize a meeting</td><td><strong>M365 Copilot</strong></td><td>Accesses Teams transcripts directly</td></tr>
+                        <tr><td>Create marketing images</td><td><strong>Nano Banana Pro</strong></td><td>Studio-quality images with accurate text</td></tr>
+                        <tr><td>Edit/expand existing images</td><td><strong>Adobe Firefly</strong></td><td>Best for modifying original content</td></tr>
+                        <tr><td>Analyze spreadsheet data</td><td><strong>M365 Copilot in Excel</strong></td><td>Works with your actual data files</td></tr>
+                        <tr><td>Complex analysis/reasoning</td><td><strong>Claude</strong></td><td>Superior analytical and reasoning capabilities</td></tr>
+                        <tr><td>Code or technical writing</td><td><strong>Claude</strong></td><td>Opus 4.5 is industry-leading for code</td></tr>
+                        <tr><td>Brainstorm ideas</td><td><strong>Any tool</strong></td><td>All work well for ideation</td></tr>
+                    </tbody>
+                </table>
+                <div class="callout info"><div class="callout-icon"><i data-lucide="info"></i></div><div><div class="callout-title">Don't Have a License?</div><p style="margin:0">Start with Copilot Chat (included for everyone). It handles the majority of common tasks effectively. Request licensed tools through the IT Service Catalog as your needs grow.</p></div></div>
+            </section>
+
+            <!-- COPILOT CHAT -->
+            <section class="section" id="copilot-chat">
+                <h1>Copilot Chat</h1>
+                <p class="subtitle">Your free, web-grounded AI assistant — powered by GPT-5</p>
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Quick Reference</div>
+                    <div class="quick-ref-grid">
+                        <div class="quick-ref-item"><div class="quick-ref-label">Best Access</div><div class="quick-ref-value"><a href="https://office.com" target="_blank">office.com</a></div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Cost</div><div class="quick-ref-value">Included with M365</div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Model</div><div class="quick-ref-value">GPT-5 (Aug 2025)</div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Mobile</div><div class="quick-ref-value"><a href="https://apps.apple.com/us/app/microsoft-365-copilot/id541164041" target="_blank">iOS App Store</a></div></div>
+                    </div>
+                </div>
+                <h2>What Copilot Chat Can Do</h2>
+                <div class="card"><h4>Great For</h4><ul><li><strong>Web research</strong> — Search and synthesize information with cited sources</li><li><strong>Brainstorming</strong> — Generate ideas, concepts, and creative directions</li><li><strong>General writing</strong> — Draft copy, emails, and content</li><li><strong>Quick questions</strong> — Get fast, accurate answers</li><li><strong>Image generation</strong> — Create images using DALL-E</li><li><strong>Summarization</strong> — Condense articles, reports, and web pages</li></ul></div>
+                <div class="card"><h4>Cannot Do</h4><ul><li>Access your work emails, files, or SharePoint</li><li>See your calendar or meeting information</li><li>Work directly within Office apps (Word, Excel, etc.)</li><li>Access Teams chats or meeting transcripts</li><li>Remember context between separate sessions</li></ul></div>
+                <div class="callout warning"><div class="callout-icon"><i data-lucide="shield"></i></div><div><div class="callout-title">Enterprise Data Protection</div><p style="margin:0">Always sign in with your @taylormadegolf.com account. This ensures your conversations are protected by Enterprise Data Protection—your data won't be used to train AI models.</p></div></div>
+            </section>
+
+            <!-- M365 COPILOT -->
+            <section class="section" id="copilot-m365">
+                <h1>Microsoft 365 Copilot</h1>
+                <p class="subtitle">AI embedded in your Office apps — works with your actual data</p>
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Quick Reference</div>
+                    <div class="quick-ref-grid">
+                        <div class="quick-ref-item"><div class="quick-ref-label">Access</div><div class="quick-ref-value">Word, Excel, PowerPoint, Outlook, Teams</div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Cost</div><div class="quick-ref-value">$30/user/month</div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Request</div><div class="quick-ref-value"><a href="https://tmgolf.freshservice.com/a/catalog/request-items/553" target="_blank">Service Catalog #553</a></div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Key Benefit</div><div class="quick-ref-value">Accesses your work data</div></div>
+                    </div>
+                </div>
+                <h2>What Makes M365 Copilot Different</h2>
+                <div class="card"><p>Unlike Copilot Chat, M365 Copilot is embedded directly in your Office applications and can:</p><ul><li><strong>Access your emails</strong> — Summarize threads, draft replies, find information</li><li><strong>Read your files</strong> — Reference documents from OneDrive and SharePoint</li><li><strong>Understand meetings</strong> — Summarize Teams meetings, create action items</li><li><strong>Work in context</strong> — Generate content based on your actual work data</li></ul></div>
+                <h2>Capabilities by App</h2>
+                <div class="accordion">
+                    <div class="accordion-item"><div class="accordion-header"><span>Outlook — Email Management</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><ul><li>Summarize long email threads</li><li>Draft replies matching your tone</li><li>Find specific information across emails</li><li>Catch up on emails you missed</li></ul><div class="prompt-box">Summarize this email thread and list the key decisions made and any action items assigned to me.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Word — Document Creation</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><ul><li>Draft documents from scratch or outlines</li><li>Summarize and analyze long documents</li><li>Rewrite content in different tones</li><li>Generate content based on reference files</li></ul><div class="prompt-box">Create a project brief for [project name] based on the meeting notes in /Documents/Project Files/. Include objectives, timeline, and key stakeholders.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Excel — Data Analysis</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><ul><li>Analyze data trends and patterns</li><li>Create formulas and pivot tables</li><li>Generate charts and visualizations</li><li>Answer questions about your data</li></ul><div class="prompt-box">Analyze the data in this spreadsheet. Show me the top performers, identify trends, and create a chart comparing this quarter to last quarter.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>PowerPoint — Presentations</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><ul><li>Create presentations from documents or outlines</li><li>Generate speaker notes</li><li>Design slides with appropriate layouts</li><li>Summarize existing presentations</li></ul><div class="prompt-box">Create a 10-slide presentation about Q4 results using the data from the Q4 Report document. Include key metrics, achievements, and 2025 outlook.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Teams — Meetings & Collaboration</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><ul><li>Summarize meetings you missed</li><li>Generate meeting notes and action items</li><li>Catch up on chat conversations</li><li>Find information discussed in meetings</li></ul><div class="prompt-box">Summarize yesterday's product launch meeting. What were the key decisions, action items, and who is responsible for each?</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                </div>
+            </section>
+
+            <!-- CLAUDE -->
+            <section class="section" id="claude">
+                <h1>Claude AI</h1>
+                <p class="subtitle">Premium AI for writing, analysis, and complex work — powered by Opus 4.5</p>
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Quick Reference</div>
+                    <div class="quick-ref-grid">
+                        <div class="quick-ref-item"><div class="quick-ref-label">Access</div><div class="quick-ref-value"><a href="https://claude.ai" target="_blank">claude.ai</a></div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Models</div><div class="quick-ref-value">Opus 4.5 / Sonnet 4.5</div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Context</div><div class="quick-ref-value">200K tokens (~500 pages)</div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Request</div><div class="quick-ref-value"><a href="https://tmgolf.freshservice.com/a/catalog/request-items/575" target="_blank">Service Catalog #575</a></div></div>
+                    </div>
+                </div>
+                <h2>Why Choose Claude?</h2>
+                <div class="card"><p>Claude excels at tasks requiring nuanced understanding, creativity, and extended reasoning:</p><ul><li><strong>Superior writing quality</strong> — More natural, polished, human-like prose</li><li><strong>Long document handling</strong> — Process 500+ pages in a single conversation</li><li><strong>Complex analysis</strong> — Better at multi-step reasoning and synthesis</li><li><strong>Creative projects</strong> — More imaginative, less formulaic outputs</li><li><strong>Code excellence</strong> — Opus 4.5 is state-of-the-art for coding</li></ul></div>
+                <h2>Model Selection</h2>
+                <div class="card"><h4>Claude Opus 4.5</h4><p>Best for complex tasks, coding, agents, and computer use. Superior at handling ambiguity and multi-step reasoning. Use for your most demanding work.</p><h4>Claude Sonnet 4.5</h4><p>Excellent balance of capability and speed. Great for everyday tasks, writing, and analysis. Default choice for most work.</p></div>
+                <h2>Key Features</h2>
+                <div class="accordion">
+                    <div class="accordion-item"><div class="accordion-header"><span>Projects — Persistent Context</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Create a Project to maintain context across conversations. Upload brand guidelines, style guides, or reference documents once—Claude remembers them for all conversations in that project.</p><p><strong>Great for:</strong> Ongoing campaigns, brand work, content series, complex projects</p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>File Uploads & Analysis</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Upload PDFs, Word docs, images, spreadsheets, and more. Claude can analyze, summarize, extract data, and answer questions about uploaded files.</p><p><strong>Supported:</strong> PDF, DOCX, TXT, CSV, XLSX, PNG, JPG, and more</p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Artifacts — Visual Outputs</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Claude can generate interactive artifacts: documents, code, diagrams, spreadsheets, and presentations that render live in your conversation.</p><p><strong>Use for:</strong> Data visualizations, document drafts, process diagrams, reports</p></div></div>
+                </div>
+            </section>
+
+            <!-- GEMINI -->
+            <section class="section" id="gemini">
+                <h1>Gemini + Nano Banana Pro</h1>
+                <p class="subtitle">Multimodal AI with studio-quality image generation — powered by Gemini 3.0 Pro</p>
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Quick Reference</div>
+                    <div class="quick-ref-grid">
+                        <div class="quick-ref-item"><div class="quick-ref-label">Access</div><div class="quick-ref-value"><a href="https://auth.cloud.google/signin/locations/global/workforcePools/tmg-entra-id-saml-pool/providers/tmg-entra-id-saml-pool-provider?continueUrl=https%3A%2F%2Fvertexaisearch.cloud.google%2Fhome%2Fcid%2F53072bd6-a14f-4182-9105-aee19ee5686f&hl=en_US" target="_blank">TaylorMade Gemini Portal</a></div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Model</div><div class="quick-ref-value">Gemini 3.0 Pro (Nov 2025)</div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Context</div><div class="quick-ref-value">1M+ tokens</div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Request</div><div class="quick-ref-value"><a href="https://tmgolf.freshservice.com/support/catalog/items/588" target="_blank">Service Catalog #588</a></div></div>
+                    </div>
+                </div>
+                <h2>Why Choose Gemini?</h2>
+                <div class="card"><p>Gemini excels at visual content creation and multimodal tasks:</p><ul><li><strong>Studio-quality images</strong> — Nano Banana Pro creates photorealistic visuals</li><li><strong>Accurate text in images</strong> — Renders text, logos, and typography correctly</li><li><strong>Massive context</strong> — Analyze entire codebases or document libraries</li><li><strong>Multimodal input</strong> — Understands images, video, and audio natively</li></ul></div>
+                <h2>Nano Banana Pro — Image Generation</h2>
+                <div class="card"><p>The viral codename for Google's image model (officially Gemini 2.5 Flash Image). Known for:</p><ul><li>Photorealistic "3D figurine" style images that went viral</li><li>Accurate text rendering within images</li><li>Natural lighting and material representation</li><li>Product mockup and marketing visual creation</li></ul><div class="prompt-box">Create a photorealistic product image of a TaylorMade driver on a golf course at sunrise. The driver head should be positioned on a tee with morning dew on the grass. Include "Qi35" text on the driver head.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div>
+            </section>
+
+            <!-- ADOBE FIREFLY -->
+            <section class="section" id="firefly">
+                <h1>Adobe Firefly</h1>
+                <p class="subtitle">AI-powered image editing and content creation — integrated with Creative Cloud</p>
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Quick Reference</div>
+                    <div class="quick-ref-grid">
+                        <div class="quick-ref-item"><div class="quick-ref-label">Access</div><div class="quick-ref-value"><a href="https://firefly.adobe.com" target="_blank">firefly.adobe.com</a></div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Cost</div><div class="quick-ref-value">Included with Adobe Account</div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Key Feature</div><div class="quick-ref-value">Generative Fill & Expand</div></div>
+                        <div class="quick-ref-item"><div class="quick-ref-label">Requirement</div><div class="quick-ref-value">TaylorMade Adobe Login</div></div>
+                    </div>
+                </div>
+
+                <div class="callout warning">
+                    <div class="callout-icon"><i data-lucide="alert-triangle"></i></div>
+                    <div>
+                        <div class="callout-title">Must Use TaylorMade Adobe Account</div>
+                        <p style="margin:0">Per company policy, you must be logged into your TaylorMade Adobe Account when using Firefly. Using a personal Adobe account is a policy violation.</p>
+                    </div>
+                </div>
+
+                <h2>What Firefly Can Do</h2>
+                <div class="card">
+                    <h4>Approved Uses</h4>
+                    <ul>
+                        <li><strong>Generative Fill</strong> — Add, remove, or replace elements in existing images</li>
+                        <li><strong>Generative Expand</strong> — Extend images beyond their original borders</li>
+                        <li><strong>Background removal/replacement</strong> — Clean up product photography</li>
+                        <li><strong>Text effects</strong> — Create stylized text with textures and patterns</li>
+                        <li><strong>Color adjustments</strong> — AI-assisted color grading and correction</li>
+                    </ul>
+                    <h4>Policy Note</h4>
+                    <p><strong>Use to edit and expand original content, NOT to create content from scratch.</strong> For net-new image creation, use Nano Banana Pro (Gemini).</p>
+                </div>
+
+                <h2>Best Use Cases for TaylorMade</h2>
+                <div class="accordion">
+                    <div class="accordion-item"><div class="accordion-header"><span>Product Photography Enhancement</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><ul><li>Remove unwanted backgrounds from product shots</li><li>Extend product images to fit different aspect ratios</li><li>Add lifestyle backgrounds to studio product photos</li><li>Clean up imperfections in existing imagery</li></ul><div class="prompt-box">Remove the background and replace with a premium golf course setting at golden hour. Maintain shadows and reflections on the product.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Marketing Asset Adaptation</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><ul><li>Resize campaign imagery for different platforms</li><li>Extend banners for wider display formats</li><li>Adapt hero images for different regions/contexts</li></ul><div class="prompt-box">Expand this horizontal banner image vertically to create a mobile-friendly version while maintaining the focal point and visual style.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                </div>
+
+                <h2>How to Access</h2>
+                <div class="steps">
+                    <div class="step"><div class="step-number"></div><div class="step-content"><div class="step-title">Go to firefly.adobe.com</div><p>Open your browser and navigate to <a href="https://firefly.adobe.com" target="_blank">firefly.adobe.com</a></p></div></div>
+                    <div class="step"><div class="step-number"></div><div class="step-content"><div class="step-title">Sign in with your TaylorMade Adobe credentials</div><p>Use your TaylorMade Adobe Account (same login you use for Photoshop, Illustrator, etc.)</p></div></div>
+                    <div class="step"><div class="step-number"></div><div class="step-content"><div class="step-title">Start editing</div><p>Upload an image or use Firefly within Photoshop for advanced editing</p></div></div>
+                </div>
+            </section>
+
+            <!-- NOT APPROVED TOOLS -->
+            <section class="section" id="not-approved">
+                <h1>Not Approved Tools</h1>
+                <p class="subtitle">These AI tools are explicitly prohibited for work use</p>
+
+                <div class="callout danger">
+                    <div class="callout-icon"><i data-lucide="shield-x"></i></div>
+                    <div>
+                        <div class="callout-title">Policy Violation Warning</div>
+                        <p style="margin:0">Using non-approved AI tools for work purposes—even on personal devices or personal accounts—violates TaylorMade's Generative AI Acceptable Use Policy and may result in disciplinary action.</p>
+                    </div>
+                </div>
+
+                <div class="not-approved-box">
+                    <h4>Explicitly Not Approved (per Policy Exhibit B)</h4>
+                    <table class="comparison-table">
+                        <thead><tr><th>Tool</th><th>Reason Not Approved</th><th>Approved Alternative</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>ChatGPT</strong> (OpenAI)</td><td>No enterprise data protection agreement; data may be used for model training</td><td>Microsoft Copilot Chat (uses same GPT models with enterprise protection)</td></tr>
+                            <tr><td><strong>Grammarly</strong></td><td>No enterprise data protection agreement; processes all typed content</td><td>Microsoft Editor (built into M365) or Claude for writing assistance</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Why These Restrictions Matter</h2>
+                <div class="card">
+                    <h4>Data Protection Concerns</h4>
+                    <ul>
+                        <li><strong>No contractual protection</strong> — Personal/free AI accounts lack enterprise data agreements</li>
+                        <li><strong>Training data risk</strong> — Your inputs may be used to train future AI models</li>
+                        <li><strong>Data exposure</strong> — Confidential information could appear in other users' outputs</li>
+                        <li><strong>Compliance gaps</strong> — Cannot meet TaylorMade's security and legal requirements</li>
+                    </ul>
+                    <h4>What This Means in Practice</h4>
+                    <ul>
+                        <li>Do NOT paste work emails, documents, or data into ChatGPT</li>
+                        <li>Do NOT use Grammarly browser extensions on work documents</li>
+                        <li>Do NOT use personal AI accounts for any work tasks, even "quick" ones</li>
+                        <li>Do NOT install non-approved AI browser extensions or plugins</li>
+                    </ul>
+                </div>
+
+                <h2>Need a Tool That's Not Listed?</h2>
+                <div class="card">
+                    <p>If you need to use an AI tool that isn't currently approved, submit a request for evaluation:</p>
+                    <p style="text-align:center; margin: 20px 0;"><a href="https://tmgolf.freshservice.com/support/catalog/items/590" target="_blank" style="display: inline-block; background: var(--tm-red); color: white; padding: 12px 24px; text-decoration: none; font-weight: 600;">Submit AI Use Request Form (Catalog #590)</a></p>
+                    <p>The review process evaluates:</p>
+                    <ul>
+                        <li>Data privacy and security protections</li>
+                        <li>Terms of service and training data policies</li>
+                        <li>Integration requirements and access controls</li>
+                        <li>Business justification and use case</li>
+                    </ul>
+                    <p><strong>Do not use the tool until it has been reviewed and approved.</strong></p>
+                </div>
+            </section>
+
+            <!-- DEPARTMENT PROMPTS -->
+            <section class="section" id="dept-prompts">
+                <h1><span class="dept-title-text">Everyone</span> Prompts</h1>
+                <p class="subtitle">Copy-paste templates optimized for your role</p>
+
+                <!-- GENERAL / EVERYONE -->
+                <div class="dept-content active" data-dept="general">
+                    <h2>Communication</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Professional Email Draft</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Write a professional email to [recipient/role] about [topic].
+
+Context:
+- Purpose: [What you need to accomplish]
+- Relationship: [How well you know them]
+- Tone: [Formal/casual/urgent]
+
+Key points to include:
+- [Point 1]
+- [Point 2]
+- [Point 3]
+
+Keep it concise and end with a clear call-to-action.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Meeting Summary</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Create a meeting summary from these notes:
+
+[Paste your rough notes here]
+
+Format the summary with:
+1. Meeting objective and attendees
+2. Key discussion points
+3. Decisions made
+4. Action items (with owners and deadlines)
+5. Next steps
+
+Keep it concise enough to skim in 2 minutes.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                    <h2>Research & Analysis</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Quick Topic Briefing</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Give me a quick briefing on [topic] that I can read in 5 minutes.
+
+Include:
+1. Key facts and current state
+2. Recent developments (last 6-12 months)
+3. Main players or stakeholders
+4. Implications for the golf industry/TaylorMade
+5. Sources for further reading
+
+Keep it under 500 words.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Pros and Cons Analysis</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Analyze the pros and cons of [decision/option].
+
+Consider:
+- Short-term vs. long-term impact
+- Cost implications
+- Risk factors
+- Resource requirements
+- Stakeholder impact
+
+Provide a balanced assessment with a recommendation.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Explain a Complex Topic</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Explain [complex topic] in simple terms that a non-expert would understand.
+
+Use:
+- Plain language (avoid jargon)
+- Analogies or examples where helpful
+- A logical structure (what, why, how)
+- Key takeaways at the end</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                    <h2>Productivity & Organization</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Task Prioritization</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me prioritize these tasks for [today/this week]:
+
+[List your tasks]
+
+Consider urgency, importance, and dependencies. Suggest a logical order and estimate time needed for each. Flag anything that could be delegated or deferred.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Meeting Agenda Creation</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Create a meeting agenda for [meeting purpose].
+
+Details:
+- Duration: [X minutes]
+- Attendees: [Who's invited]
+- Goal: [What we need to accomplish]
+- Topics to cover: [List items]
+
+Include time allocations and identify who should lead each section.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Project Status Update</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me write a project status update for [project name].
+
+Current status:
+- [What's been completed]
+- [What's in progress]
+- [Blockers or risks]
+- [Next steps]
+
+Format for [audience: leadership/team/stakeholders]. Keep it concise and action-oriented.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                    <h2>Learning & Problem Solving</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Brainstorm Ideas</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me brainstorm ideas for [challenge/opportunity].
+
+Context: [Brief background]
+Constraints: [Budget, time, resources, etc.]
+
+Generate 10 diverse ideas ranging from safe/incremental to bold/innovative. For each, briefly note the potential impact and effort required.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Learn Something New</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">I want to learn about [topic]. I'm a [beginner/intermediate] and have [X time] to spend.
+
+Create a learning plan that includes:
+1. Key concepts to understand first
+2. Recommended resources (articles, videos, courses)
+3. Practical exercises to apply what I learn
+4. How to know when I've mastered the basics</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Troubleshoot a Problem</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me troubleshoot this problem:
+
+[Describe the issue]
+
+What I've already tried:
+[List attempted solutions]
+
+What I expected vs. what happened:
+[Describe the gap]
+
+Suggest potential causes and solutions to try next.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                </div>
+
+                <!-- MARKETING -->
+                <div class="dept-content" data-dept="marketing">
+                    <h2>Content Creation</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Product Launch Copy</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Write launch copy for TaylorMade's new [Product Name] driver.
+
+Target audience: Mid-handicap golfers (10-18 handicap) seeking more distance and forgiveness
+Key product benefits: [List 3-4 key technologies/features]
+Tone: Confident, performance-focused, backed by technology
+
+Deliverables needed:
+1. Hero headline (under 10 words)
+2. Subheadline (under 25 words)
+3. Three key benefit bullets
+4. 100-word product description
+5. Call-to-action options</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Social Media Content Calendar</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Create a 2-week social media content calendar for TaylorMade Golf.
+
+Context: We're in the lead-up to a major PGA Tour event where our athletes are competing
+Platforms: Instagram, Twitter/X, TikTok, Facebook
+Mix needed:
+- Product highlights (30%)
+- Athlete content (25%)
+- User engagement/community (20%)
+- Behind-the-scenes/brand (15%)
+- Educational/tips (10%)
+
+For each post, provide: Platform, Post type, Caption draft, Hashtag suggestions, Best posting time</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Email Campaign Series</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Design a 4-email nurture sequence for golfers who downloaded our driver fitting guide but haven't booked a fitting.
+
+Goal: Convert to fitting appointment booking
+Audience: Engaged prospects interested in equipment optimization
+Timing: Space emails 3-4 days apart
+Brand voice: Expert, helpful, not pushy
+
+For each email provide: Subject line (with A/B variant), Preview text, Email body, Primary CTA</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                    <h2>Research & Analysis</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Competitor Analysis</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Search for Callaway and Titleist's latest driver marketing campaigns from 2024-2025. Analyze and summarize:
+
+1. Key messaging themes and positioning
+2. Target audience segments based on their creative
+3. Primary marketing channels and campaign types
+4. Notable athlete endorsements and how they're used
+5. Unique selling propositions vs. TaylorMade
+6. Any innovative approaches we should consider
+
+Cite your sources.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Campaign Performance Analysis</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Upload your campaign data, then:</p><div class="prompt-box">Analyze this campaign performance data and provide:
+
+1. Executive summary of overall performance
+2. Top 3 performing content pieces and why they worked
+3. Bottom 3 performers and hypotheses for underperformance
+4. Audience segment insights
+5. Channel-by-channel breakdown
+6. Specific recommendations for next campaign
+
+Format as a brief you could present to leadership.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                </div>
+
+                <!-- SALES -->
+                <div class="dept-content" data-dept="sales">
+                    <h2>Prospect Research & Outreach</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Account Research Brief</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Research [Prospect Company Name] and create a pre-call brief:
+
+1. Company overview (size, locations, market position)
+2. Recent news or announcements (last 6 months)
+3. Their current golf equipment partnerships/vendors (if visible)
+4. Key decision-makers in purchasing/merchandising
+5. Potential pain points based on their business model
+6. Talking points connecting TaylorMade solutions to their needs
+7. Questions to ask on the discovery call
+
+Focus on insights that help personalize my outreach.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Follow-Up Email After Meeting</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Write a follow-up email after my meeting with [Contact Name] at [Company].
+
+Meeting context:
+- We discussed: [Key topics]
+- They expressed interest in: [Products/solutions]
+- Their concerns were: [Objections/questions]
+- Next steps we agreed on: [Actions]
+
+The email should: Thank them, summarize key points, address one concern proactively, confirm next steps, and include a clear call-to-action. Keep it under 200 words.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Cold Outreach Email</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Write a cold outreach email to a golf retail buyer at [Company Type - e.g., regional golf chain, country club, resort].
+
+Context:
+- Their likely priorities: [margin, brand strength, customer demand]
+- Our value prop: [What TaylorMade offers that competitors don't]
+- Trigger event (if any): [New store opening, competitor losing share, etc.]
+
+The email should:
+1. Lead with value, not a pitch
+2. Reference something specific about their business
+3. Be under 125 words
+4. End with a low-friction CTA (not "book a meeting")
+
+Write 2 versions: one formal, one conversational.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Re-engagement Email for Dormant Account</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Write a re-engagement email for an account that hasn't ordered in [X months].
+
+Account context:
+- Previous relationship: [What they used to buy, volume]
+- Last interaction: [When/what happened]
+- What's new since then: [New products, programs, terms]
+
+The email should:
+1. Acknowledge the gap without guilt-tripping
+2. Share 1-2 compelling updates
+3. Offer a reason to reconnect now
+4. Make it easy to respond
+
+Tone: Friendly, not desperate.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                    <h2>Sales Enablement</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Objection Handling Responses</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me prepare responses for common objections I hear from golf retailers:
+
+1. "TaylorMade pricing is too high compared to competitors"
+2. "We're already locked into a deal with [Competitor]"
+3. "Our customers prefer [Competitor Brand]"
+
+For each objection, provide:
+- Acknowledgment of their concern
+- Reframe that shifts perspective
+- Supporting data point or proof point
+- Question to advance the conversation</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Competitive Battle Card</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Create a competitive battle card for TaylorMade vs [Competitor] drivers.
+
+Include:
+1. Side-by-side feature comparison
+2. TaylorMade advantages (with proof points)
+3. Where competitor may appear stronger (and how to respond)
+4. Key talking points for sales conversations
+5. Questions to ask that highlight our strengths
+
+Format for quick reference during sales calls.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Quarterly Business Review Prep</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me prepare for a Quarterly Business Review with [Account Name].
+
+Data to include:
+- Last quarter's order volume: [X]
+- YoY comparison: [X%]
+- Top-selling products: [List]
+- Areas of concern: [Any issues]
+
+Create an outline that covers:
+1. Performance celebration (what went well)
+2. Market insights they'd find valuable
+3. Opportunities we haven't captured yet
+4. New products/programs relevant to them
+5. Proposed goals for next quarter
+6. Ask/commitment to secure
+
+Make it a conversation, not a presentation.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Deal Negotiation Strategy</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me develop a negotiation strategy for a deal with [Account].
+
+Situation:
+- Deal size: [Value/volume]
+- Their ask: [What they want - discount, terms, etc.]
+- Our constraints: [What we can/can't do]
+- Relationship importance: [Strategic value]
+- Competition: [Who else they're considering]
+
+Develop:
+1. Our BATNA (best alternative)
+2. Their likely BATNA
+3. Value we can add beyond price
+4. Concessions we can make (in order of preference)
+5. What we should ask for in return
+6. Walk-away point</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Territory Planning Analysis</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me analyze and prioritize my territory for next quarter.
+
+Current accounts: [List or describe - tiers, segments]
+Quota: [Target]
+Last quarter performance: [Results]
+Market factors: [Seasonality, competitive pressure, etc.]
+
+Create a framework that:
+1. Segments accounts by potential and effort required
+2. Identifies top 10 accounts for focused attention
+3. Suggests time allocation by account tier
+4. Flags at-risk accounts needing protection
+5. Highlights whitespace opportunities
+
+Include a weekly activity plan template.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                    <h2>Customer Communication</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Price Increase Communication</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me communicate a price increase to [Account Name].
+
+Details:
+- Increase amount: [X%]
+- Effective date: [Date]
+- Reason: [Cost pressures, value improvements, etc.]
+- Our relationship: [Length, volume, strategic importance]
+
+Write an email that:
+1. Leads with value and partnership
+2. Clearly states the change
+3. Provides reasonable justification
+4. Offers to discuss in person
+5. Maintains the relationship
+
+Tone: Confident but empathetic, not apologetic.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Issue Resolution Response</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me respond to a customer complaint about [Issue - shipping delay, product defect, order error, etc.].
+
+Situation:
+- What happened: [Details]
+- Customer impact: [How it affected them]
+- What we're doing to fix it: [Resolution]
+- What we'll do to prevent recurrence: [Process change]
+
+Write a response that:
+1. Acknowledges their frustration
+2. Takes ownership (no excuses)
+3. Clearly states the resolution
+4. Offers appropriate make-good
+5. Reinforces commitment to the partnership
+
+Keep it genuine, not corporate.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                </div>
+
+                <!-- FINANCE -->
+                <div class="dept-content" data-dept="finance">
+                    <h2>Financial Analysis & Reporting</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Variance Analysis Narrative</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Upload your variance report, then:</p><div class="prompt-box">Analyze this budget vs. actual variance report and write an executive narrative explaining:
+
+1. Top 5 favorable variances with root cause analysis
+2. Top 5 unfavorable variances with root cause analysis
+3. Key trends to watch
+4. Risks to full-year outlook
+5. Recommended actions
+
+Format for a CFO audience. Be concise but insightful.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Excel Formula Help</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">I need an Excel formula that [describe what you're trying to do].
+
+My data structure:
+- [Describe relevant columns/data]
+
+Please provide:
+1. The formula
+2. Explanation of how it works
+3. How to modify it for different scenarios
+4. Common errors to watch for</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                </div>
+
+                <!-- HR -->
+                <div class="dept-content" data-dept="hr">
+                    <h2>Recruiting & Talent Acquisition</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Job Description Creation</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Write a job description for a [Job Title] position at TaylorMade Golf.
+
+Role details:
+- Department: [Department]
+- Reports to: [Title]
+- Location: [Location/Remote status]
+- Key responsibilities: [List main duties]
+- Required experience: [Years and type]
+
+Make it compelling to attract top talent while being accurate about the role. Include a brief section about TaylorMade's culture. Avoid gendered language.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Interview Questions by Competency</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Create behavioral interview questions for a [Job Title] role.
+
+Key competencies to assess:
+1. [Competency 1 - e.g., Problem Solving]
+2. [Competency 2 - e.g., Leadership]
+3. [Competency 3 - e.g., Collaboration]
+
+For each competency, provide:
+- 2-3 behavioral questions (STAR format prompts)
+- What a strong answer looks like
+- Red flags to watch for</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                    <h2>Employee Communications</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Policy Communication</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Write an employee communication announcing [policy change].
+
+Key details:
+- What is changing: [Details]
+- Why we're making this change: [Rationale]
+- When it takes effect: [Date]
+- What employees need to do: [Actions]
+
+Tone: Clear, empathetic, transparent. Anticipate employee concerns and address them proactively.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                </div>
+
+                <!-- LEGAL -->
+                <div class="dept-content" data-dept="legal">
+                    <h2>Contract Review & Analysis</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Contract Summary & Risk Identification</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Upload a contract document, then:</p><div class="prompt-box">Review this contract and provide:
+
+1. Executive summary (parties, purpose, key terms, duration)
+2. Key obligations for TaylorMade
+3. Key obligations for counterparty
+4. Financial terms summary
+5. Termination provisions
+6. Potential risk areas flagged for attorney review
+
+Note: This is for initial review purposes. All contracts require attorney approval before execution.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Legal Research Summary</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Research [legal topic] and provide:
+
+1. Summary of key legal requirements
+2. Recent developments or changes
+3. Compliance obligations for companies like TaylorMade
+4. Best practices for compliance
+5. Recommended next steps
+
+Note: This is for preliminary research. Legal conclusions require attorney review.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                </div>
+
+                <!-- OPERATIONS -->
+                <div class="dept-content" data-dept="operations">
+                    <h2>Supply Chain & Logistics</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Demand Forecasting Analysis</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Upload historical sales data, then:</p><div class="prompt-box">Analyze this historical sales data and help me build a demand forecast for [product category/SKU].
+
+Please provide:
+1. Trend analysis - overall direction and growth rate
+2. Seasonality patterns - peak and trough periods
+3. Forecast for next [6/12] months with confidence ranges
+4. Key assumptions underlying the forecast
+5. Recommended safety stock levels</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Standard Operating Procedure</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Write a Standard Operating Procedure (SOP) for [process name].
+
+Include:
+1. Purpose and scope
+2. Roles and responsibilities
+3. Step-by-step procedure with clear instructions
+4. Quality checkpoints and acceptance criteria
+5. Exception handling procedures
+
+Make it detailed enough that a new team member could follow it independently.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Inventory Optimization Analysis</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Upload inventory data, then:</p><div class="prompt-box">Analyze this inventory data and provide optimization recommendations:
+
+1. ABC analysis - categorize items by value/velocity
+2. Slow-moving/obsolete inventory identification
+3. Stockout risk assessment by SKU
+4. Reorder point recommendations
+5. Carrying cost analysis
+6. Specific actions to improve inventory turns
+
+Focus on actionable recommendations with estimated impact.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Supplier Performance Scorecard</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me create a supplier performance scorecard for [Supplier Name].
+
+Metrics to evaluate:
+- On-time delivery rate: [X%]
+- Quality defect rate: [X%]
+- Lead time consistency: [X days variance]
+- Responsiveness to issues: [Qualitative]
+- Price competitiveness: [vs. alternatives]
+
+Create a scorecard that:
+1. Weights each metric by importance
+2. Calculates an overall score
+3. Identifies improvement areas
+4. Suggests discussion points for supplier review
+5. Recommends action (continue/improve/replace)</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Logistics Cost Analysis</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Upload shipping/logistics data, then:</p><div class="prompt-box">Analyze this logistics data and identify cost optimization opportunities:
+
+1. Cost breakdown by carrier, mode, and lane
+2. Comparison to industry benchmarks where possible
+3. Patterns in expedited shipping (root causes)
+4. Consolidation opportunities
+5. Route optimization suggestions
+6. Carrier performance comparison
+7. Recommended actions with estimated savings
+
+Prioritize recommendations by impact and ease of implementation.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Warehouse Process Improvement</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me identify process improvements for our [picking/packing/receiving] operation.
+
+Current state:
+- Volume: [Units per day]
+- Staffing: [Number of people]
+- Current process: [Brief description]
+- Pain points: [What's not working well]
+- Constraints: [Space, budget, technology]
+
+Suggest:
+1. Quick wins (implementable this week)
+2. Medium-term improvements (1-3 months)
+3. Longer-term investments to consider
+4. Metrics to track improvement
+5. Change management considerations</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Production Schedule Optimization</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me optimize the production schedule for [product line/facility].
+
+Inputs:
+- Demand forecast: [Attach or describe]
+- Production capacity: [Units per day/week]
+- Changeover time between products: [Hours]
+- Current inventory levels: [By product]
+- Lead times: [Raw materials]
+
+Create a schedule that:
+1. Meets demand with appropriate safety stock
+2. Minimizes changeovers
+3. Balances workload across shifts/lines
+4. Identifies potential bottlenecks
+5. Flags risks to on-time delivery</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Root Cause Analysis</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me conduct a root cause analysis for [Problem - shipping error, quality issue, delay, etc.].
+
+What happened:
+- Problem description: [Details]
+- When discovered: [Date/time]
+- Impact: [Customer, cost, volume affected]
+- Immediate response: [What was done]
+
+Guide me through:
+1. 5 Whys analysis
+2. Fishbone diagram categories to explore
+3. Data I should gather to verify root cause
+4. Potential systemic vs. one-time causes
+5. Recommended corrective actions
+6. Preventive measures to implement</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                    <h2>Reporting & Communication</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Operations Dashboard Narrative</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Write a weekly operations summary for leadership based on these metrics:
+
+[Paste or describe your KPIs - fill rate, on-time delivery, inventory turns, etc.]
+
+Include:
+1. Executive summary (3 sentences max)
+2. What's working well this week
+3. Areas of concern and mitigation plans
+4. Key initiatives progress
+5. Focus for next week
+
+Keep it to one page. Leadership wants signal, not noise.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Cross-Functional Issue Communication</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me communicate an operations issue to [Sales/Marketing/Finance] teams.
+
+Issue: [What's happening - supply constraint, delay, quality issue]
+Impact: [How it affects their function]
+What we're doing: [Actions underway]
+What we need from them: [Specific asks]
+Timeline: [When it will be resolved]
+
+Write an email that:
+1. Leads with the business impact they care about
+2. Is transparent without creating panic
+3. Shows we have a plan
+4. Makes clear asks with deadlines
+5. Offers to discuss further</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                </div>
+
+                <!-- ENGINEERING -->
+                <div class="dept-content" data-dept="engineering">
+                    <h2>Technical Documentation</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Engineering Specification Review</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Upload a spec document, then:</p><div class="prompt-box">Review this engineering specification and provide:
+
+1. Summary of key requirements
+2. Potential technical issues or concerns
+3. Ambiguous requirements that need clarification
+4. Missing specifications that should be added
+5. Testing requirements implied by the specs
+6. Questions for the design review meeting</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Materials Research</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Research [material type] and summarize:
+
+1. Current state of technology and recent advances
+2. Key material properties and tradeoffs
+3. Leading suppliers and their offerings
+4. Competitor usage (what materials are Callaway, Titleist using?)
+5. Potential performance benefits for golf applications
+
+Cite sources where possible.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                </div>
+
+                <!-- PRODUCT -->
+                <div class="dept-content" data-dept="product">
+                    <h2>Product Development</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Product Requirements Document</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me draft a Product Requirements Document (PRD) for [product concept].
+
+Initial inputs:
+- Target golfer: [Description]
+- Key problem to solve: [Pain point]
+- Performance targets: [Goals]
+- Price positioning: [Range]
+
+Create a PRD outline including:
+1. Product vision and objectives
+2. Target user personas
+3. Functional requirements (prioritized MoSCoW)
+4. Performance specifications
+5. Success metrics and KPIs</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Competitive Product Teardown</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Help me structure a competitive product teardown analysis for [competitor product].
+
+Research and compile:
+1. Product positioning and marketing claims
+2. Key technologies and features (from public sources)
+3. Pricing and SKU structure
+4. Reviews and reception (critics and consumers)
+5. Strengths vs. our current offering
+6. Weaknesses and opportunities to exploit
+
+Cite sources.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                </div>
+
+                <!-- IT -->
+                <div class="dept-content" data-dept="it">
+                    <h2>Technical Support & Documentation</h2>
+                    <div class="accordion">
+                        <div class="accordion-item"><div class="accordion-header"><span>Knowledge Base Article</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Write a knowledge base article for [issue - e.g., "How to connect to VPN from home"].
+
+Include:
+1. Clear title optimized for search
+2. Prerequisites (software, access, etc.)
+3. Step-by-step instructions with numbered steps
+4. Troubleshooting section for common errors
+5. When to contact IT helpdesk
+
+Write for a non-technical audience.</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                        <div class="accordion-item"><div class="accordion-header"><span>Incident Response Summary</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><div class="prompt-box">Write an incident summary for [incident].
+
+Details:
+- Start time: [When]
+- Impact: [What/who was affected]
+- Root cause: [What caused it]
+- Resolution: [What fixed it]
+
+Create:
+1. Executive summary (2-3 sentences)
+2. Detailed timeline of events
+3. Root cause analysis
+4. Preventive measures implemented</div><button class="copy-btn" onclick="copyPrompt(this)"><i data-lucide="copy"></i> Copy</button></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROMPTING BEST PRACTICES -->
+            <section class="section" id="prompting">
+                <h1>Prompting Frameworks</h1>
+                <p class="subtitle">Choose the right approach for better AI results</p>
+
+                <h2>Core Frameworks</h2>
+                <div class="framework-grid">
+                    <div class="framework-card">
+                        <h4>CRAFT — Structured Communication</h4>
+                        <p><strong>Best for:</strong> Professional documents, status reports, presentations</p>
+                        <ul>
+                            <li><strong>C</strong>ontext — Background and situation</li>
+                            <li><strong>R</strong>ole — Perspective AI should take</li>
+                            <li><strong>A</strong>ction — Specific task to perform</li>
+                            <li><strong>F</strong>ormat — Desired output structure</li>
+                            <li><strong>T</strong>arget — Audience for the content</li>
+                        </ul>
+                    </div>
+                    <div class="framework-card">
+                        <h4>CLEAR — Similar Alternative</h4>
+                        <p><strong>Best for:</strong> Performance reviews, executive summaries</p>
+                        <ul>
+                            <li><strong>C</strong>ontext — Set the scene with your role and situation</li>
+                            <li><strong>L</strong>ength — Specify desired output length</li>
+                            <li><strong>E</strong>xamples — Provide examples when helpful</li>
+                            <li><strong>A</strong>ction — Be specific about what you want</li>
+                            <li><strong>R</strong>ole — Tell AI what perspective to take</li>
+                        </ul>
+                    </div>
+                    <div class="framework-card">
+                        <h4>SIRE — Iterative Refinement</h4>
+                        <p><strong>Best for:</strong> Complex documentation, technical specs, multi-step procedures</p>
+                        <ul>
+                            <li><strong>S</strong>pecify — Start with your scenario</li>
+                            <li><strong>I</strong>terate — Build through multiple rounds</li>
+                            <li><strong>R</strong>efine — Improve based on output</li>
+                            <li><strong>E</strong>xamples — Add examples for clarity</li>
+                        </ul>
+                        <p><em>Key insight: Don't expect perfection on first try. Plan for 3-5 iterations.</em></p>
+                    </div>
+                    <div class="framework-card">
+                        <h4>Socratic — Question-Driven Discovery</h4>
+                        <p><strong>Best for:</strong> Exploring complex problems, learning new concepts, challenging assumptions</p>
+                        <ul>
+                            <li>Start with open questions</li>
+                            <li>Build on responses with follow-ups</li>
+                            <li>Challenge assumptions</li>
+                            <li>Explore different angles</li>
+                        </ul>
+                        <p><em>Example: "Ask me 3 questions to help me understand the difference between OAuth and Basic Auth"</em></p>
+                    </div>
+                </div>
+
+                <h2>Choosing Your Framework</h2>
+                <table class="comparison-table">
+                    <thead><tr><th>Task Type</th><th>Best Framework</th><th>Why</th></tr></thead>
+                    <tbody>
+                        <tr><td>Status report, email, memo</td><td>CRAFT or CLEAR</td><td>Structured output with clear audience</td></tr>
+                        <tr><td>Complex technical document</td><td>SIRE</td><td>Requires iteration and refinement</td></tr>
+                        <tr><td>Image generation</td><td>SIRE</td><td>Visual outputs need multiple iterations</td></tr>
+                        <tr><td>Learning new concept</td><td>Socratic</td><td>Questions reveal understanding gaps</td></tr>
+                        <tr><td>Strategic decision analysis</td><td>Socratic</td><td>Explores multiple perspectives</td></tr>
+                        <tr><td>Training materials</td><td>SIRE</td><td>Complex content built incrementally</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Pro Tips</h2>
+                <div class="accordion">
+                    <div class="accordion-item"><div class="accordion-header"><span>Start Broad, Then Narrow</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Begin with a general request. Then refine with follow-ups: "Make it more concise" or "Focus more on the financial impact" or "Add more specific examples"</p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Provide Examples</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Show the AI what good looks like. Paste in an example of the style, format, or approach you want. Say "Write something similar to this:" or "Match the tone of this example."</p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Break Complex Tasks Down</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Instead of asking for a complete plan in one prompt, break it into steps: First analyze, then identify segments, then develop messaging, finally create channel strategy.</p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Ask for Multiple Options</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Request variations: "Give me 5 different headline options" or "Provide 3 approaches to solving this problem, with pros and cons of each."</p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Use the AI as a Critic</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Ask the AI to review its own work: "Now critique this and suggest improvements" or "What are the weaknesses in this approach?"</p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Always Verify Data</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>AI can "hallucinate"—generating plausible but incorrect information. Always verify statistics, dates, and facts, especially for external communications. Use web search for current information.</p></div></div>
+                </div>
+            </section>
+
+            <!-- COMPARISON -->
+            <section class="section" id="comparison">
+                <h1>Tool Comparison</h1>
+                <p class="subtitle">Side-by-side feature comparison</p>
+                <div class="update-banner">
+                    <i data-lucide="info"></i>
+                    <span><strong>Tool Capabilities Update:</strong> This comparison reflects capabilities as of December 2025. AI tools evolve rapidly—if you notice discrepancies or have questions, contact <a href="mailto:ali.chitsaz@taylormadegolf.com">ali.chitsaz@taylormadegolf.com</a></span>
+                </div>
+                <table class="comparison-table">
+                    <thead><tr><th>Feature</th><th>Copilot Chat</th><th>M365 Copilot</th><th>Claude</th><th>Gemini</th><th>Firefly</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Cost</strong></td><td>Included</td><td>$30/month</td><td>Licensed</td><td>Licensed</td><td>Included*</td></tr>
+                        <tr><td><strong>Model</strong></td><td>GPT-5</td><td>GPT-5</td><td>Opus 4.5</td><td>Gemini 3 Pro</td><td>Firefly 3</td></tr>
+                        <tr><td><strong>Web Search</strong></td><td class="check">Yes</td><td class="check">Yes</td><td class="check">Yes</td><td class="check">Yes</td><td class="cross">No</td></tr>
+                        <tr><td><strong>Work Data Access</strong></td><td class="cross">No</td><td class="check">Full Access</td><td class="cross">No</td><td class="cross">No</td><td class="cross">No</td></tr>
+                        <tr><td><strong>File Uploads</strong></td><td>Limited</td><td>Yes</td><td>Excellent</td><td>Good</td><td>Images only</td></tr>
+                        <tr><td><strong>Image Generation</strong></td><td class="check">DALL-E</td><td class="check">DALL-E</td><td class="cross">No</td><td class="check">Nano Banana</td><td class="check">Edit/Expand</td></tr>
+                        <tr><td><strong>Context Window</strong></td><td>128K tokens</td><td>128K tokens</td><td>200K tokens</td><td>1M tokens</td><td>N/A</td></tr>
+                        <tr><td><strong>Writing Quality</strong></td><td>Good</td><td>Good</td><td>Excellent</td><td>Good</td><td>N/A</td></tr>
+                        <tr><td><strong>Coding</strong></td><td>Good</td><td>Good</td><td>Excellent</td><td>Good</td><td>N/A</td></tr>
+                        <tr><td><strong>Best For</strong></td><td>Quick research</td><td>Office work</td><td>Complex writing</td><td>Visual content</td><td>Image editing</td></tr>
+                    </tbody>
+                </table>
+                <p><em>*Firefly is included with TaylorMade Adobe Account</em></p>
+            </section>
+
+            <!-- FAQ -->
+            <section class="section" id="faq">
+                <h1>FAQ and Support</h1>
+                <p class="subtitle">Common questions and how to get help</p>
+                <h2>Frequently Asked Questions</h2>
+                <div class="accordion">
+                    <div class="accordion-item"><div class="accordion-header"><span>Is my data safe when using these AI tools?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Yes, when using approved tools correctly. All approved tools are configured with enterprise-grade data protection. <strong>Always sign in with your @taylormadegolf.com account</strong> to ensure protection is active. Your data will not be used to train AI models.</p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Can I share confidential information with AI tools?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Use judgment appropriate to data sensitivity:</p><ul><li><strong>OK with enterprise tools:</strong> General business information, drafts, internal communications</li><li><strong>Use caution:</strong> Customer information (only if business need exists)</li><li><strong>Consult Legal first:</strong> Trade secrets, unreleased product details, contractual information</li><li><strong>Never input:</strong> Passwords, personal financial data, employee SSNs</li></ul><p>When in doubt, contact Legal.</p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>How do I get a license for Claude/M365 Copilot/Gemini?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Submit a request through the IT Service Catalog:</p><ul><li><a href="https://tmgolf.freshservice.com/a/catalog/request-items/553" target="_blank">M365 Copilot - Catalog #553</a> ($30/month, requires manager approval)</li><li><a href="https://tmgolf.freshservice.com/a/catalog/request-items/575" target="_blank">Claude - Catalog #575</a></li><li><a href="https://tmgolf.freshservice.com/support/catalog/items/588" target="_blank">Gemini - Catalog #588</a></li></ul><p>Adobe Firefly is already included with your TaylorMade Adobe Account.</p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Can I use personal AI accounts (ChatGPT, personal Claude)?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p><strong>No.</strong> Personal AI accounts lack enterprise data protection. Your conversations may be used to train models. This is a policy violation. Always use TaylorMade-approved tools with your work account.</p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Why are ChatGPT and Grammarly not approved?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>These tools do not have enterprise data protection agreements with TaylorMade. Data entered could be used to train models or potentially appear in other users' outputs. We provide approved alternatives that offer the same capabilities with proper protection.</p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>Why do AI tools sometimes give wrong information?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>AI can "hallucinate"—generating plausible but incorrect information. This is more common with specific statistics, recent events, and company-specific data. Always verify important facts before using in communications.</p></div></div>
+                    <div class="accordion-item"><div class="accordion-header"><span>What if I need to use a tool that's not approved?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Submit a request through the <a href="https://tmgolf.freshservice.com/support/catalog/items/590" target="_blank">Generative AI Use Request Form (Catalog #590)</a>. Provide your business justification and use case. The Legal Department will complete an AI Checklist for review. <strong>Do not use the tool until it's been reviewed and added to the approved list.</strong></p></div></div>
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+                            <span><strong>What should I do if I accidentally entered confidential information into an AI tool?</strong></span>
+                            <i data-lucide="chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="callout danger">
+                                <div class="callout-icon"><i data-lucide="alert-triangle"></i></div>
+                                <div>
+                                    <div class="callout-title">Immediate Action Required</div>
+                                    <p>If you've accidentally entered sensitive, confidential, or proprietary information into any AI tool, take these steps immediately:</p>
+                                </div>
+                            </div>
+                            <ol>
+                                <li><strong>Stop using the tool immediately</strong> - Do not continue the conversation or make additional queries</li>
+                                <li><strong>Document what happened</strong> - Note what information was shared, which tool was used, and when it occurred</li>
+                                <li><strong>Contact IT Security immediately</strong> - Report the incident to IT Security via:
+                                    <ul>
+                                        <li>Email: <a href="mailto:ITSecurity@taylormadegolf.com">ITSecurity@taylormadegolf.com</a></li>
+                                        <li>Freshservice: <a href="https://tmgolf.freshservice.com" target="_blank">Submit urgent security ticket</a></li>
+                                    </ul>
+                                </li>
+                                <li><strong>Notify your manager</strong> - Inform your direct supervisor of the incident</li>
+                                <li><strong>Contact Legal if needed</strong> - For sensitive matters involving customer data, contracts, or legal information, also notify:
+                                    <ul>
+                                        <li>Legal Department: <a href="mailto:legal@taylormadegolf.com">legal@taylormadegolf.com</a></li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            
+                            <div class="callout info">
+                                <div class="callout-icon"><i data-lucide="shield"></i></div>
+                                <div>
+                                    <div class="callout-title">Prevention is Key</div>
+                                    <p><strong>Remember:</strong> Always use enterprise versions of AI tools when logged into your TaylorMade account. Never use personal/free versions for work-related tasks. When in doubt about whether information is confidential, treat it as confidential and <strong>do not enter it</strong> into any AI tool without explicit approval.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+                            <span><strong>Who should I contact with questions about the AI Acceptable Use Policy?</strong></span>
+                            <i data-lucide="chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <p>For all questions about TaylorMade's Generative AI Acceptable Use Policy, including:</p>
+                            <ul>
+                                <li>What constitutes confidential or proprietary information</li>
+                                <li>Whether a specific AI tool can be approved for use</li>
+                                <li>Clarification on policy requirements or restrictions</li>
+                                <li>Requesting approval for a new use case</li>
+                                <li>Reporting potential policy violations</li>
+                            </ul>
+                            
+                            <h4 style="margin-top: 20px;">Primary Policy Contact</h4>
+                            <div class="card" style="background: var(--tm-gray-100); margin-top: 12px;">
+                                <p style="margin: 0;"><strong>Legal Department</strong><br>
+                                Email: <a href="mailto:legal@taylormadegolf.com">legal@taylormadegolf.com</a><br>
+                                For urgent policy questions: Contact Luke Cocalis or Michael Camastra directly</p>
+                            </div>
+                            
+                            <h4 style="margin-top: 20px;">Additional Resources</h4>
+                            <ul>
+                                <li><strong>Full Policy Document:</strong> <a href="https://taylormadegolf.sharepoint.com/:b:/r/sites/Legal/Shared%20Documents/Policies/Generative%20AI%20Acceptable%20Use%20Policy.pdf" target="_blank">View AI Acceptable Use Policy (PDF)</a></li>
+                                <li><strong>AI Tool Requests:</strong> <a href="https://tmgolf.freshservice.com/support/catalog/items/590" target="_blank">Submit AI Tool Request (Catalog #590)</a></li>
+                                <li><strong>Technical Support:</strong> <a href="mailto:ali.chitsaz@taylormadegolf.com">ali.chitsaz@taylormadegolf.com</a></li>
+                            </ul>
+                            
+                            <div class="callout warning">
+                                <div class="callout-icon"><i data-lucide="alert-circle"></i></div>
+                                <div>
+                                    <div class="callout-title">When in Doubt, Ask First</div>
+                                    <p>It's always better to ask for clarification before using an AI tool in a new way than to risk violating company policy. The Legal team is here to help ensure you can work effectively while maintaining compliance.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                
+                </div>
+                <h2>Get Help</h2>
+                <div class="card">
+                    <h4>IT Service Portal</h4>
+                    <p>For access requests, technical issues, and general support:<br><a href="https://tmgolf.freshservice.com" target="_blank">tmgolf.freshservice.com</a></p>
+                    <h4>Request a New AI Tool</h4>
+                    <p>Want to use an AI tool that's not currently approved? Submit a request for review:<br><a href="https://tmgolf.freshservice.com/support/catalog/items/590" target="_blank">Generative AI Use Request Form (Catalog #590)</a></p>
+                    <h4>AI Tools Support Contact</h4>
+                    <p>For questions about AI tools, best practices, and use cases:<br><a href="/cdn-cgi/l/email-protection#b3d2dfda9dd0dbdac7c0d2c9f3c7d2cadfdcc1ded2d7d6d4dcdfd59dd0dcde"><span class="__cf_email__" data-cfemail="ddbcb1b4f3beb5b4a9aebca79da9bca4b1b2afb0bcb9b8bab2b1bbf3beb2b0">[email&#160;protected]</span></a></p>
+                                        <h4>Policy Questions & Legal Guidance</h4>
+                    <p>For questions about the AI Acceptable Use Policy, data classification, or approval requests:<br>
+                    <strong>Legal Department:</strong> <a href="mailto:legal@taylormadegolf.com">legal@taylormadegolf.com</a><br>
+                    Contacts: Luke Cocalis, Michael Camastra</p>
+                    <h4>AI Policy Document</h4>
+                    <p>For full policy details and guidelines:<br><a href="https://taylormadegolf.sharepoint.com/:b:/r/sites/Legal/Shared%20Documents/Policies/Generative%20AI%20Acceptable%20Use%20Policy.pdf" target="_blank">View Generative AI Acceptable Use Policy (PDF)</a></p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        var deptNames = {
+            'general': 'Everyone',
+            'marketing': 'Marketing',
+            'sales': 'Sales',
+            'finance': 'Finance',
+            'hr': 'Human Resources',
+            'legal': 'Legal',
+            'operations': 'Operations',
+            'engineering': 'Engineering',
+            'product': 'Product Creation',
+            'it': 'IT'
+        };
+        
+        var currentDept = 'general';
+        
+        function navigateTo(sectionId) {
+            var sections = document.querySelectorAll('.section');
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].classList.remove('active');
+            }
+            var navItems = document.querySelectorAll('.nav-item');
+            for (var i = 0; i < navItems.length; i++) {
+                navItems[i].classList.remove('active');
+            }
+            var section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.add('active');
+                var navItem = document.querySelector('.nav-item[data-section="' + sectionId + '"]');
+                if (navItem) navItem.classList.add('active');
+            }
+            window.scrollTo(0, 0);
+        }
+        
+        function toggleDeptDropdown() {
+            document.getElementById('dept-dropdown').classList.toggle('active');
+        }
+        
+        function switchDepartment(deptId) {
+            currentDept = deptId;
+            document.getElementById('current-dept-name').textContent = deptNames[deptId];
+            document.getElementById('nav-dept-label').textContent = deptNames[deptId];
+            var titleTexts = document.querySelectorAll('.dept-title-text');
+            for (var i = 0; i < titleTexts.length; i++) {
+                titleTexts[i].textContent = deptNames[deptId];
+            }
+            var options = document.querySelectorAll('.dept-option');
+            for (var i = 0; i < options.length; i++) {
+                options[i].classList.remove('active');
+                if (options[i].dataset.dept === deptId) {
+                    options[i].classList.add('active');
+                }
+            }
+            var contents = document.querySelectorAll('.dept-content');
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+                if (contents[i].dataset.dept === deptId) {
+                    contents[i].classList.add('active');
+                }
+            }
+            document.getElementById('dept-dropdown').classList.remove('active');
+        }
+        
+        function copyPrompt(btn) {
+            var promptBox = btn.previousElementSibling;
+            var text = promptBox.textContent.trim();
+            navigator.clipboard.writeText(text).then(function() {
+                var originalText = btn.innerHTML;
+                btn.innerHTML = '<i data-lucide="check"></i> Copied!';
+                btn.classList.add('copied');
+                lucide.createIcons();
+                setTimeout(function() {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('copied');
+                    lucide.createIcons();
+                }, 2000);
+        
+        // Back to Top functionality
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Show/hide back to top button based on scroll position
+        window.addEventListener('scroll', function() {
+            var backToTopBtn = document.getElementById('backToTop');
+            if (backToTopBtn) {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            }
+        });
+            });
+        }
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+            
+            var navItems = document.querySelectorAll('.nav-item[data-section]');
+            for (var i = 0; i < navItems.length; i++) {
+                navItems[i].addEventListener('click', function() {
+                    navigateTo(this.dataset.section);
+                });
+            }
+            
+            var deptOptions = document.querySelectorAll('.dept-option');
+            for (var i = 0; i < deptOptions.length; i++) {
+                deptOptions[i].addEventListener('click', function() {
+                    switchDepartment(this.dataset.dept);
+                });
+            }
+            
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dept-switcher')) {
+                    document.getElementById('dept-dropdown').classList.remove('active');
+                }
+            });
+            
+            var accordionHeaders = document.qu
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        <i data-lucide="arrow-up"></i>
+    </button>
+
+e
