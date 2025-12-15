@@ -74,10 +74,11 @@
         .tool-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
         .tool-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; border-radius: 8px; overflow: hidden; }
         .tool-icon svg { width: 32px; height: 32px; }
-        .tool-icon.copilot { background: white; padding: 6px; }
-        .tool-icon.claude { background: white; padding: 6px; }
-        .tool-icon.gemini { background: white; padding: 6px; }
-        .tool-icon.firefly { background: white; padding: 6px; }
+        .tool-icon.copilot { background: white; padding: 4px; }
+        .tool-icon.claude { background: white; padding: 4px; }
+        .tool-icon.gemini { background: white; padding: 4px; }
+        .tool-icon.firefly { background: white; padding: 4px; }
+        .tool-icon img { width: 100%; height: 100%; object-fit: contain; }
         .tool-name { font-weight: 700; font-size: 16px; }
         .tool-type { font-size: 12px; color: var(--tm-gray-600); }
         .tool-desc { font-size: 14px; color: var(--tm-gray-600); margin-bottom: 12px; }
@@ -148,7 +149,7 @@
         @media (max-width: 768px) {
             .enterprise-box { grid-template-columns: 1fr; }
         }
-    
+
         /* Version Badge */
         .version-badge {
             position: absolute;
@@ -220,7 +221,6 @@
         .update-banner strong {
             color: var(--info);
         }
-
     </style>
 </head>
 <body>
@@ -247,6 +247,7 @@
                 <div class="dept-option" data-dept="product"><i data-lucide="lightbulb"></i> Product Creation</div>
                 <div class="dept-option" data-dept="it"><i data-lucide="server"></i> IT</div>
             </div>
+            <span class="version-badge">Last Updated: December 2025 | v4.0</span>
         </div>
     </header>
 
@@ -328,7 +329,7 @@
                 <div class="tool-grid">
                     <div class="tool-card" onclick="navigateTo('copilot-chat')">
                         <div class="tool-card-header">
-                            <div class="tool-icon copilot"><img src="Copilot.png" alt="Copilot" style="width:100%;height:100%;object-fit:contain;"></div>
+                            <div class="tool-icon copilot"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
                             <div><div class="tool-name">Microsoft Copilot Chat</div><div class="tool-type">Microsoft • GPT-5</div></div>
                         </div>
                         <div class="tool-desc">Free AI chat for web research, brainstorming, and general questions. Enterprise Data Protection included.</div>
@@ -336,7 +337,7 @@
                     </div>
                     <div class="tool-card" onclick="navigateTo('copilot-m365')">
                         <div class="tool-card-header">
-                            <div class="tool-icon copilot"><img src="Copilot.png" alt="Copilot" style="width:100%;height:100%;object-fit:contain;"></div>
+                            <div class="tool-icon copilot"><svg viewBox="0 0 24 24" fill="white"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H6v-2h6v2zm4-4H6v-2h10v2zm0-4H6V7h10v2z"/></svg></div>
                             <div><div class="tool-name">Microsoft 365 Copilot</div><div class="tool-type">Microsoft • $30/user/month</div></div>
                         </div>
                         <div class="tool-desc">AI embedded in Outlook, Word, Excel, PowerPoint, and Teams. Accesses your work data directly.</div>
@@ -344,7 +345,7 @@
                     </div>
                     <div class="tool-card" onclick="navigateTo('claude')">
                         <div class="tool-card-header">
-                            <div class="tool-icon claude"><img src="Claude.png" alt="Claude" style="width:100%;height:100%;object-fit:contain;"></div>
+                            <div class="tool-icon claude"><svg viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="8" fill="none" stroke="white" stroke-width="2"/><path d="M12 8v4l3 3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
                             <div><div class="tool-name">Claude AI</div><div class="tool-type">Anthropic • Licensed</div></div>
                         </div>
                         <div class="tool-desc">Best-in-class writing, analysis, and creative work. Excellent for long documents and nuanced tasks.</div>
@@ -352,7 +353,7 @@
                     </div>
                     <div class="tool-card" onclick="navigateTo('gemini')">
                         <div class="tool-card-header">
-                            <div class="tool-icon gemini"><img src="google-gemini-icon.png" alt="Gemini" style="width:100%;height:100%;object-fit:contain;"></div>
+                            <div class="tool-icon gemini"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="white" stroke-width="2" fill="none"/></svg></div>
                             <div><div class="tool-name">Gemini + Nano Banana Pro</div><div class="tool-type">Google DeepMind • Licensed</div></div>
                         </div>
                         <div class="tool-desc">Multimodal AI with studio-quality image generation. Create visuals with accurate text rendering.</div>
@@ -360,7 +361,7 @@
                     </div>
                     <div class="tool-card" onclick="navigateTo('firefly')">
                         <div class="tool-card-header">
-                            <div class="tool-icon firefly"><img src="Firefly.png" alt="Firefly" style="width:100%;height:100%;object-fit:contain;"></div>
+                            <div class="tool-icon firefly"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2c-4 4-6 8-6 12 0 3.31 2.69 6 6 6s6-2.69 6-6c0-4-2-8-6-12zm0 16c-1.65 0-3-1.35-3-3 0-2 1-4 3-6 2 2 3 4 3 6 0 1.65-1.35 3-3 3z"/></svg></div>
                             <div><div class="tool-name">Adobe Firefly</div><div class="tool-type">Adobe • Licensed</div></div>
                         </div>
                         <div class="tool-desc">AI-powered image editing and expansion. Best for enhancing and extending original visual content.</div>
@@ -1420,6 +1421,7 @@ Create:
                     <div class="accordion-item"><div class="accordion-header"><span>Why are ChatGPT and Grammarly not approved?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>These tools do not have enterprise data protection agreements with TaylorMade. Data entered could be used to train models or potentially appear in other users' outputs. We provide approved alternatives that offer the same capabilities with proper protection.</p></div></div>
                     <div class="accordion-item"><div class="accordion-header"><span>Why do AI tools sometimes give wrong information?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>AI can "hallucinate"—generating plausible but incorrect information. This is more common with specific statistics, recent events, and company-specific data. Always verify important facts before using in communications.</p></div></div>
                     <div class="accordion-item"><div class="accordion-header"><span>What if I need to use a tool that's not approved?</span><i data-lucide="chevron-down"></i></div><div class="accordion-body"><p>Submit a request through the <a href="https://tmgolf.freshservice.com/support/catalog/items/590" target="_blank">Generative AI Use Request Form (Catalog #590)</a>. Provide your business justification and use case. The Legal Department will complete an AI Checklist for review. <strong>Do not use the tool until it's been reviewed and added to the approved list.</strong></p></div></div>
+                
                     <div class="accordion-item">
                         <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
                             <span><strong>What should I do if I accidentally entered confidential information into an AI tool?</strong></span>
@@ -1498,7 +1500,6 @@ Create:
                         </div>
                     </div>
 
-                
                 </div>
                 <h2>Get Help</h2>
                 <div class="card">
@@ -1595,23 +1596,6 @@ Create:
                     btn.classList.remove('copied');
                     lucide.createIcons();
                 }, 2000);
-        
-        // Back to Top functionality
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        // Show/hide back to top button based on scroll position
-        window.addEventListener('scroll', function() {
-            var backToTopBtn = document.getElementById('backToTop');
-            if (backToTopBtn) {
-                if (window.pageYOffset > 300) {
-                    backToTopBtn.classList.add('visible');
-                } else {
-                    backToTopBtn.classList.remove('visible');
-                }
-            }
-        });
             });
         }
         
@@ -1639,9 +1623,21 @@ Create:
                 }
             });
             
-            var accordionHeaders = document.qu
+            var accordionHeaders = document.querySelectorAll('.accordion-header');
+            for (var i = 0; i < accordionHeaders.length; i++) {
+                accordionHeaders[i].addEventListener('click', function() {
+                    this.parentElement.classList.toggle('active');
+                });
+            }
+            
+            // Initialize first section as active
+            navigateTo('overview');
+        });
+    </script>
+    
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
         <i data-lucide="arrow-up"></i>
     </button>
 
-e
+</body>
+</html>
