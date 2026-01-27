@@ -24,6 +24,19 @@
             --info: #0284C7;
             --danger: #DC2626;
         }
+        /* Password Protection Overlay */
+        .password-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--tm-black); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+        .password-overlay.hidden { display: none; }
+        .password-box { background: var(--tm-white); padding: 40px; border-radius: 8px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .password-box img { height: 40px; margin-bottom: 24px; }
+        .password-box h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; margin-bottom: 8px; color: var(--tm-black); }
+        .password-box p { color: var(--tm-gray-600); margin-bottom: 24px; font-size: 14px; }
+        .password-box input { width: 100%; padding: 12px 16px; font-size: 18px; border: 2px solid var(--tm-gray-200); border-radius: 4px; text-align: center; letter-spacing: 8px; font-family: 'Barlow', sans-serif; margin-bottom: 16px; }
+        .password-box input:focus { outline: none; border-color: var(--tm-red); }
+        .password-box button { width: 100%; padding: 12px 24px; background: var(--tm-red); color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer; font-family: 'Barlow', sans-serif; }
+        .password-box button:hover { background: var(--tm-red-dark); }
+        .password-box .error { color: var(--danger); font-size: 14px; margin-top: 12px; display: none; }
+        .password-box .error.show { display: block; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Barlow', sans-serif; background: var(--tm-gray-100); color: var(--tm-gray-800); line-height: 1.6; }
         .header { background: var(--tm-black); color: var(--tm-white); padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
@@ -226,6 +239,18 @@
     </style>
 </head>
 <body>
+    <!-- Password Protection Overlay -->
+    <div class="password-overlay" id="passwordOverlay">
+        <div class="password-box">
+            <img src="taylor-made-golf-vector-logo.png" alt="TaylorMade" onerror="this.style.display='none'">
+            <h2>AI TOOLS GUIDE</h2>
+            <p>Enter access code to continue</p>
+            <input type="password" id="passwordInput" maxlength="4" placeholder="••••" onkeyup="if(event.key==='Enter')checkPassword()">
+            <button onclick="checkPassword()">Access Guide</button>
+            <div class="error" id="passwordError">Incorrect code. Please try again.</div>
+        </div>
+    </div>
+    
     <header class="header">
         <div class="header-left">
             <img src="https://www.taylormadegolf.com/on/demandware.static/Sites-TMaG-US-Site/-/default/dwe53ca98e/images/logo.svg" class="logo" alt="TaylorMade" onerror="this.style.display='none'">
@@ -1998,6 +2023,27 @@ Create:
     </div>
 
     <script>
+        // Password Protection
+        function checkPassword() {
+            var input = document.getElementById('passwordInput');
+            var error = document.getElementById('passwordError');
+            var overlay = document.getElementById('passwordOverlay');
+            
+            if (input.value === '5545') {
+                overlay.classList.add('hidden');
+                sessionStorage.setItem('tmgAIGuideAuth', 'true');
+            } else {
+                error.classList.add('show');
+                input.value = '';
+                input.focus();
+            }
+        }
+        
+        // Check if already authenticated this session
+        if (sessionStorage.getItem('tmgAIGuideAuth') === 'true') {
+            document.getElementById('passwordOverlay').classList.add('hidden');
+        }
+        
         var deptNames = {
             'general': 'Everyone',
             'marketing': 'Marketing',
