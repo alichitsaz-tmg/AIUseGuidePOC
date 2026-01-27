@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.js"></script>
     <style>
         :root {
             --tm-red: #E31837;
@@ -2089,3 +2089,28 @@ Create:
             
             var deptOptions = document.querySelectorAll('.dept-option');
             for (var i = 0; i < deptOptions.length; i++) {
+                deptOptions[i].addEventListener('click', function() {
+                    switchDepartment(this.dataset.dept);
+                });
+            }
+            
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dept-switcher')) {
+                    document.getElementById('dept-dropdown').classList.remove('active');
+                }
+            });
+            
+            var accordionHeaders = document.querySelectorAll('.accordion-header');
+            for (var i = 0; i < accordionHeaders.length; i++) {
+                accordionHeaders[i].addEventListener('click', function() {
+                    this.parentElement.classList.toggle('active');
+                });
+            }
+            
+            // Initialize first section as active
+            navigateTo('overview');
+        });
+    </script>
+
+</body>
+</html>
